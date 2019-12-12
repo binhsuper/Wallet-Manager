@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#F2F4F7"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
+
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraintLayout"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_50sdp"
         android:gravity="center_vertical"
+        android:background="#F2F4F7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -61,91 +61,195 @@
 
     </android.support.constraint.ConstraintLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="List of accounts"
-        android:layout_marginStart="@dimen/_12sdp"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:layout_marginBottom="@dimen/_16sdp"
-        android:textSize="@dimen/_18sdp"
-        android:textColor="@color/text"
-        app:layout_constraintBottom_toTopOf="@+id/wallets"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/wallets"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_6sdp"
-        android:layout_marginEnd="@dimen/_12sdp"
         android:overScrollMode="never"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="84dp">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-    </android.support.v7.widget.RecyclerView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F2F4F7"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            tools:context=".MainActivity">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="@dimen/_5sdp"
-    android:layout_marginTop="@dimen/_20sdp"
-    android:layout_marginLeft="@dimen/_12sdp"
-    android:layout_marginRight="@dimen/_12sdp"
-    android:background="@drawable/balance_layout"
-    android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginBottom="@dimen/_16sdp"
+                android:text="List of accounts"
+                android:textColor="@color/text"
+                android:textSize="@dimen/_18sdp" />
 
-    <TextView
-        android:id="@+id/accountBalance"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/wallets"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_6sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:overScrollMode="never"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="84dp">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_12sdp"
+                android:background="@drawable/balance_layout"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/_5sdp">
+
+                <TextView
+                    android:id="@+id/accountBalance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:text="$48000.00"
+                    android:textColor="#FF958F"
+                    android:textSize="@dimen/_30sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_12sdp"
+                    android:text="Total Balance"
+                    android:textColor="@color/silver"
+                    android:textSize="@dimen/_16sdp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginBottom="@dimen/_16sdp"
+                android:text="Last Record Overview"
+                android:textColor="@color/text"
+                android:textSize="@dimen/_18sdp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/records"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_6sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:layout_marginBottom="@dimen/_50sdp"
+                android:scrollbars="vertical"
+                android:scrollbarThumbVertical="@color/silver"
+                android:scrollbarSize="@dimen/_3sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="84dp">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_100sdp">
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/fab2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_12sdp"
-        android:text="$48000.00"
-        android:textSize="@dimen/_30sdp"
-        android:textColor="#FF958F"/>
+        android:layout_marginRight="@dimen/_6sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/fab"
+        app:layout_constraintEnd_toEndOf="@+id/fab"
+        app:layout_constraintTop_toTopOf="@+id/fab">
 
-    <TextView
+        <TextView
+            android:id="@+id/addWalletText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add new deal"
+            android:visibility="invisible"
+            android:background="@drawable/corner_textview"
+            android:padding="@dimen/_5sdp"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/addDealBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/text"
+            android:tint="@color/white"
+            android:layout_marginLeft="@dimen/_10sdp"
+            app:borderWidth="0dp"
+            app:elevation="0dp"
+            app:fabCustomSize="@dimen/_35sdp"
+            android:src="@drawable/money_icon"
+            />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/fab1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Total Balance"
-        android:textSize="@dimen/_16sdp"
-        android:textColor="@color/silver"
-        android:layout_marginBottom="@dimen/_12sdp"
-    />
+        android:layout_marginRight="@dimen/_6sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/fab"
+        app:layout_constraintEnd_toEndOf="@+id/fab"
+        app:layout_constraintTop_toTopOf="@+id/fab">
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/addDealText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/corner_textview"
+            android:padding="@dimen/_5sdp"
+            android:text="Add new wallet"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp"
+            android:visibility="invisible" />
 
-    <TextView
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/addWalletBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/text"
+            android:src="@drawable/wallet_icon"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:tint="@color/white"
+            app:borderWidth="0dp"
+            app:elevation="0dp"
+            app:fabCustomSize="@dimen/_35sdp" />
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Last Record Overview"
-        android:layout_marginStart="@dimen/_12sdp"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:layout_marginBottom="@dimen/_16sdp"
-        android:textSize="@dimen/_18sdp"
-        android:textColor="@color/text"
-        app:layout_constraintBottom_toTopOf="@+id/wallets"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        app:layout_constraintVertical_bias="0.0" />
+        android:layout_margin="@dimen/_16sdp"
+        android:src="@drawable/add_icon"
+        android:backgroundTint="@color/text"
+        app:borderWidth="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/records"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_6sdp"
-        android:layout_marginEnd="@dimen/_12sdp"
-        android:layout_marginBottom="@dimen/_12sdp"
-        android:overScrollMode="never"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="84dp">
+</android.support.constraint.ConstraintLayout>
 
-    </android.support.v7.widget.RecyclerView>
-</LinearLayout>
