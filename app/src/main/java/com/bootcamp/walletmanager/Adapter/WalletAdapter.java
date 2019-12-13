@@ -1,4 +1,4 @@
-package com.bootcamp.walletmanager;
+package com.bootcamp.walletmanager.Adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -8,9 +8,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.bootcamp.walletmanager.Datamodel.Wallets;
+import com.bootcamp.walletmanager.R;
 
 import java.util.List;
 import java.util.Random;
@@ -39,8 +41,8 @@ public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.WalletView
         int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
         holder.background.setBackgroundColor(color);
 
-        holder.walletName.setText(mWallets.get(position).name);
-        holder.money.setText("$" + mWallets.get(position).value + ".00");
+        holder.walletName.setText(mWallets.get(position).getName());
+        holder.money.setText("$" + mWallets.get(position).getValue() + ".00");
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

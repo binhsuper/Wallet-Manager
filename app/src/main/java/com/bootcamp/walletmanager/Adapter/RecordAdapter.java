@@ -1,7 +1,6 @@
-package com.bootcamp.walletmanager;
+package com.bootcamp.walletmanager.Adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -9,11 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bootcamp.walletmanager.Datamodel.Records;
+import com.bootcamp.walletmanager.R;
+
 import java.util.List;
-import java.util.Random;
 
 public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordViewHolder> {
     List<Records> mRecords;
@@ -34,11 +34,11 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
 
     @Override
     public void onBindViewHolder(@NonNull RecordViewHolder holder, int position) {
-        holder.walletName.setText(mRecords.get(position).name);
-        holder.money.setText(mRecords.get(position).amount);
-        holder.recordType.setText(mRecords.get(position).fromWallet);
-        holder.date.setText(mRecords.get(position).date);
-        holder.background.setImageResource(mRecords.get(position).typeImg);
+        holder.walletName.setText(mRecords.get(position).getName());
+        holder.money.setText(mRecords.get(position).getAmount());
+        holder.recordType.setText(mRecords.get(position).getFromWallet());
+        holder.date.setText(mRecords.get(position).getDate());
+        holder.background.setImageResource(mRecords.get(position).getTypeImg());
 
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
