@@ -1,5 +1,6 @@
 package com.bootcamp.walletmanager.Activities;
 
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -23,13 +25,7 @@ public class CreateWallet extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_wallet);
         configureToolbar();
-
-        spinner = (Spinner) findViewById(R.id.type_spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.wallet_types, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-
+        configureWalletTypeInput();
     }
 
     private void configureToolbar() {
@@ -60,7 +56,39 @@ public class CreateWallet extends AppCompatActivity {
 
             }
         });
+    }
 
+    private void configureWalletTypeInput() {
+        final ImageView walletType = (ImageView) findViewById(R.id.wallet_type_picker);
+        spinner = (Spinner) findViewById(R.id.type_spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.wallet_types, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        walletType.setImageResource(R.drawable.wallet_wallet_icon);
+                        break;
+                    case 1:
+                        walletType.setImageResource(R.drawable.wallet_bank);
+                        break;
+                    case 2:
+                        walletType.setImageResource(R.drawable.wallet_credit_card);
+                        break;
+                    case 3:
+                        walletType.setImageResource(R.drawable.wallet_saving);
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private String[] getTextInput() {

@@ -1,5 +1,6 @@
 package com.bootcamp.walletmanager.Adapter;
 
+import android.graphics.Color;
 import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
@@ -16,6 +17,7 @@ import com.bootcamp.walletmanager.Datamodel.Records;
 import com.bootcamp.walletmanager.R;
 
 import java.util.List;
+import java.util.logging.Handler;
 
 public class DealTypeAdapter extends RecyclerView.Adapter<DealTypeAdapter.DealTypeViewHolder>  {
     List<DealType> mTypes;
@@ -38,6 +40,7 @@ public class DealTypeAdapter extends RecyclerView.Adapter<DealTypeAdapter.DealTy
     public void onBindViewHolder(@NonNull final DealTypeViewHolder holder, final int i) {
         holder.dealImg.setImageResource(mTypes.get(i).getTypeImg());
         holder.dealName.setText(mTypes.get(i).getTypeName());
+        holder.checkBox.setClickable(false);
 
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override

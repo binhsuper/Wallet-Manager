@@ -100,6 +100,7 @@ public class CreateDeal extends AppCompatActivity {
         walletInput.setInputType(InputType.TYPE_NULL);
 
         final Intent dealType = new Intent(this, DealTypes.class);
+        final Intent walletPick = new Intent(this, WalletList.class);
 
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
@@ -136,7 +137,7 @@ public class CreateDeal extends AppCompatActivity {
         walletInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick: " + "wallet selected");
+                startActivityForResult(walletPick, 1);
             }
         });
     }
@@ -169,6 +170,12 @@ public class CreateDeal extends AppCompatActivity {
                 groupImg.setImageResource(data.getIntExtra("groupImg", 0));
                 groupImg.clearColorFilter();
                 groupInput.setText(value1);
+            }
+        }
+        else if (requestCode == 1) {
+            if(resultCode == RESULT_OK) {
+                String value1 = data.getStringExtra("walletName");
+                walletInput.setText(value1);
             }
         }
     }

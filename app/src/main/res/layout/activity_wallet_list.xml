@@ -6,17 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Activities.DealTypes">
+    tools:context=".Activities.WalletList">
 
     <Toolbar
-        android:id="@+id/dealTypeToolbar"
+        android:id="@+id/walletListToolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
 
         android:background="@color/white">
 
         <Button
-            android:id="@+id/dealTypesCloseBtn"
+            android:id="@+id/walletListCloseBtn"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
             android:layout_gravity="left"
@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Chọn nhóm giao dịch"
+            android:text="Chọn ví"
             android:textColor="@color/text"
             android:textSize="@dimen/_16sdp" />
 
@@ -41,21 +41,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <Spinner
-                android:id="@+id/groupType"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_50sdp"
-                android:layout_margin="@dimen/_10sdp">
-
-            </Spinner>
-
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/types"
+                android:id="@+id/walletListRV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:overScrollMode="never"
                 android:layout_marginHorizontal="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_10sdp">
+                android:layout_marginTop="@dimen/_20sdp">
             </android.support.v7.widget.RecyclerView>
         </LinearLayout>
 

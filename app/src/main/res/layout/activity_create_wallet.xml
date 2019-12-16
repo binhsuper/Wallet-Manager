@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:text="Tên ví: "
             android:layout_gravity="center"
-            android:textSize="@dimen/_14sdp"
+            android:textSize="@dimen/_18sdp"
             android:textColor="@color/text"/>
 
         <EditText
@@ -88,7 +88,7 @@
             android:layout_gravity="center"
             android:text="Số tiền: "
             android:textColor="@color/text"
-            android:textSize="@dimen/_14sdp" />
+            android:textSize="@dimen/_18sdp" />
 
         <com.bootcamp.walletmanager.CustomView.CurrencyEditText
             android:id="@+id/editWalletAmount"
@@ -98,22 +98,37 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:text="Kiểu ví: "
+        android:textSize="@dimen/_18sdp"
+        android:textColor="@color/text"
+        app:layout_constraintStart_toStartOf="@+id/walletTypeInput"
+        app:layout_constraintTop_toBottomOf="@+id/walletAmountInput" />
+
     <LinearLayout
         android:id="@+id/walletTypeInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_12sdp"
-        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/walletAmountInput">
+        app:layout_constraintTop_toBottomOf="@+id/textView">
 
 
-        <TextView
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/wallet_type_picker"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
             android:layout_gravity="center"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:src="@drawable/deal_types"
             android:text="Kiểu ví: "
             android:textColor="@color/text"
             android:textSize="@dimen/_14sdp" />
@@ -121,8 +136,9 @@
         <Spinner
             android:id="@+id/type_spinner"
             android:layout_width="fill_parent"
-            android:foregroundTint="@color/text"
-            android:layout_height="@dimen/_30sdp" />
+            android:layout_height="@dimen/_40sdp"
+            android:layout_gravity="center"
+            android:foregroundTint="@color/text" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

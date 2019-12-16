@@ -149,7 +149,7 @@ public class Dasboard extends AppCompatActivity {
         TextView balance = findViewById(R.id.accountBalance);
         int value = 0;
         for (int i = 0; i < walletData.getWallet().size(); i++) {
-            value += walletData.getWallet().get(i).getValue();
+            value += walletData.getWallet().get(i).getAmount();
         }
         balance.setText(Integer.toString(value) + ".00 đ");
     }

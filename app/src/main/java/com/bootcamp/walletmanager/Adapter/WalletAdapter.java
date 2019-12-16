@@ -10,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bootcamp.walletmanager.Datamodel.WalletData;
 import com.bootcamp.walletmanager.Datamodel.Wallets;
 import com.bootcamp.walletmanager.R;
 
@@ -36,16 +38,34 @@ public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.WalletView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull WalletViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull WalletViewHolder holder, final int position) {
         Random rnd = new Random();
         int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
         holder.background.setBackgroundColor(color);
 
         holder.walletName.setText(mWallets.get(position).getName());
-        holder.money.setText("$" + mWallets.get(position).getValue() + ".00");
+        holder.money.setText("$" + mWallets.get(position).getAmount() + ".00");
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast toast;
+                int walletType = mWallets.get(position).getWalletType();
+                if (walletType == WalletData.WalletType.NORMAL.getValue()) {
+                    toast = Toast.makeText(mContext, "Ví thường", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                else if (walletType == WalletData.WalletType.BANK_ACCOUNT.getValue()) {
+                    toast = Toast.makeText(mContext, "bank account", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                else if (walletType == WalletData.WalletType.CREDIT_CARD.getValue()) {
+                    toast = Toast.makeText(mContext, "credit card", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                else if (walletType == WalletData.WalletType.SAVINGS.getValue()) {
+                    toast = Toast.makeText(mContext, "saving account", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
             }
         });
     }
