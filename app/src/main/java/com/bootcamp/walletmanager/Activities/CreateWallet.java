@@ -1,6 +1,7 @@
 package com.bootcamp.walletmanager.Activities;
 
 import android.provider.ContactsContract;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,7 +16,7 @@ import android.widget.Toast;
 
 import com.bootcamp.walletmanager.R;
 
-public class CreateWallet extends AppCompatActivity {
+public class CreateWallet extends CustomActivity {
 
     private String TAG = "UserInput";
     Spinner spinner;
@@ -24,12 +25,18 @@ public class CreateWallet extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_wallet);
+        ConstraintLayout rootLayout = (ConstraintLayout) findViewById(R.id.createWalletLayout);
+        rootLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hideKeyboard();
+            }
+        });
         configureToolbar();
         configureWalletTypeInput();
     }
 
     private void configureToolbar() {
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         Button closeBtn = (Button) findViewById(R.id.walletCloseBtn);
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override

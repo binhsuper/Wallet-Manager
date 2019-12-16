@@ -12,6 +12,7 @@
         android:id="@+id/dealToolBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -58,8 +59,10 @@
         <com.bootcamp.walletmanager.CustomView.CurrencyEditText
             android:id="@+id/editDealAmount"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:inputType="number"
+            android:background="@drawable/edittext_layout"
+            android:paddingLeft="@dimen/_10sdp"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:hint="0.00 $"
             />
@@ -86,7 +89,9 @@
         <EditText
             android:id="@+id/editDealType"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/edittext_layout"
+            android:paddingLeft="@dimen/_10sdp"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:hint="Chọn nhóm"
             />
@@ -112,7 +117,9 @@
         <EditText
             android:id="@+id/editDealDate"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/edittext_layout"
+            android:paddingLeft="@dimen/_10sdp"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:focusable="false"
             android:hint="Chọn ngày"
@@ -139,7 +146,9 @@
         <EditText
             android:id="@+id/editDealWallet"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/_10sdp"
+            android:background="@drawable/edittext_layout"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:hint="Chọn ví"
             />

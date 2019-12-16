@@ -26,7 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class CreateDeal extends AppCompatActivity {
+public class CreateDeal extends CustomActivity {
     private String TAG = "DealInput";
     private EditText moneyInput, groupInput, dateInput, walletInput, noteInput;
     private ImageView groupImg;
@@ -45,8 +45,8 @@ public class CreateDeal extends AppCompatActivity {
         noteInput = (EditText) findViewById(R.id.editDealNotes);
         groupImg = (ImageView) findViewById(R.id.groupImg);
 
-        ConstraintLayout createDealLayout = (ConstraintLayout) findViewById(R.id.createDealLayout);
-        createDealLayout.setOnClickListener(new View.OnClickListener() {
+        ConstraintLayout rootLayout = (ConstraintLayout) findViewById(R.id.createDealLayout);
+        rootLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 hideKeyboard();
@@ -57,7 +57,6 @@ public class CreateDeal extends AppCompatActivity {
     }
 
     private void configureToolbar() {
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         Button closeBtn = (Button) findViewById(R.id.dealCloseBtn);
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,15 +147,6 @@ public class CreateDeal extends AppCompatActivity {
 
         dateInput.setText(sdf.format(myCalendar.getTime()));
     }
-
-    private void hideKeyboard() {
-        View view = this.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-    }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

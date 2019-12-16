@@ -2,6 +2,7 @@ package com.bootcamp.walletmanager.Activities;
 
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,7 +25,7 @@ import com.bootcamp.walletmanager.Datamodel.SideBar;
 import com.bootcamp.walletmanager.Datamodel.WalletData;
 import com.bootcamp.walletmanager.R;
 
-public class Dasboard extends AppCompatActivity {
+public class Dasboard extends CustomActivity {
 
     WalletData walletData = new WalletData();
     RecordData recordData = new RecordData();
@@ -39,7 +40,7 @@ public class Dasboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        openLoginPage();
 
         configureRecyclerViews();
         countBalance();
@@ -48,6 +49,11 @@ public class Dasboard extends AppCompatActivity {
         configureFloatingBtn();
 
 
+    }
+
+    private void openLoginPage() {
+        Intent intent = new Intent(this, Login.class);
+        startActivity(intent);
     }
 
     private void configureFloatingBtn() {

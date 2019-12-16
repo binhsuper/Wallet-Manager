@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    android:id="@+id/createWalletLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -55,7 +57,7 @@
 
 
         <TextView
-            android:layout_width="@dimen/_100sdp"
+            android:layout_width="@dimen/_80sdp"
             android:layout_height="wrap_content"
             android:text="Tên ví: "
             android:layout_gravity="center"
@@ -66,8 +68,10 @@
             android:id="@+id/editWalletName"
             android:layout_width="match_parent"
             android:textSize="@dimen/_16sdp"
+            android:paddingLeft="@dimen/_10sdp"
             android:textColor="@color/text"
-            android:layout_height="wrap_content" />
+            android:background="@drawable/edittext_layout"
+            android:layout_height="@dimen/_30sdp" />
     </LinearLayout>
 
     <LinearLayout
@@ -83,7 +87,7 @@
 
 
         <TextView
-            android:layout_width="@dimen/_100sdp"
+            android:layout_width="@dimen/_80sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Số tiền: "
@@ -94,8 +98,10 @@
             android:id="@+id/editWalletAmount"
             android:layout_width="match_parent"
             android:textSize="@dimen/_16sdp"
+            android:paddingLeft="@dimen/_10sdp"
             android:textColor="@color/text"
-            android:layout_height="wrap_content" />
+            android:background="@drawable/edittext_layout"
+            android:layout_height="@dimen/_30sdp" />
     </LinearLayout>
 
     <TextView

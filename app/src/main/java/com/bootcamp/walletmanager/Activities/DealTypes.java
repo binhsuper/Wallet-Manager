@@ -20,7 +20,7 @@ import com.bootcamp.walletmanager.R;
 
 import java.nio.file.attribute.GroupPrincipal;
 
-public class DealTypes extends AppCompatActivity implements DealTypeAdapter.GroupSelected {
+public class DealTypes extends CustomActivity implements DealTypeAdapter.GroupSelected {
     DealTypeData mDealTypeData;
     RecyclerView walletsView;
     DealTypeAdapter dealTypeAdapter;
@@ -35,10 +35,7 @@ public class DealTypes extends AppCompatActivity implements DealTypeAdapter.Grou
         configureSpinner();
     }
 
-
-
     private void configureToolbar() {
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         Button closeBtn = (Button) findViewById(R.id.dealTypesCloseBtn);
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
