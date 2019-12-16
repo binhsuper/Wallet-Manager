@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">WalletManager</string>
+    <string name="income">KHOẢN THU</string>
+    <string name="spending">KHOẢN CHI</string>
+
+    <string-array name="wallet_types">
+        <item>Ví thông thường</item>
+        <item>Tài khoản ngân hàng</item>
+        <item>Thẻ tín dụng</item>
+        <item>Ví tiết kiệm</item>
+    </string-array>
+
+    <string-array name="group_types">
+        <item>KHOẢN THU</item>
+        <item>KHOẢN CHI</item>
+    </string-array>
 </resources>

@@ -60,19 +60,21 @@ public class Dasboard extends AppCompatActivity {
         FloatingActionButton addDealBtn = (FloatingActionButton) findViewById(R.id.addDealBtn),
         addWalletBtn = (FloatingActionButton) findViewById(R.id.addWalletBtn);
 
+        final Intent dealIntent = new Intent(this, CreateDeal.class);
         addDealBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: " + "creating deal");
+                startActivity(dealIntent);
             }
         });
 
-        final Intent intent = new Intent(this, CreateWallet.class);
+        final Intent walletIntent = new Intent(this, CreateWallet.class);
         addWalletBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: " + "creating wallets");
-                startActivity(intent);
+                startActivity(walletIntent);
             }
         });
 
@@ -149,7 +151,7 @@ public class Dasboard extends AppCompatActivity {
         for (int i = 0; i < walletData.getWallet().size(); i++) {
             value += walletData.getWallet().get(i).getValue();
         }
-        balance.setText("$" + Integer.toString(value) + ".00");
+        balance.setText(Integer.toString(value) + ".00 đ");
     }
 
     private void configureRecyclerViews() {

@@ -19,10 +19,10 @@ public class SideBar {
 
     public SideBar(Activity context, Toolbar toolbar) {
         final IProfile profile = new ProfileDrawerItem().withName("Hoang The Binh").withEmail("hoangthebinh259@gmail.com").withIcon(R.drawable.drawer_user);
-        PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName("History").withIcon(R.drawable.drawer_history);
-        PrimaryDrawerItem item2 = new PrimaryDrawerItem().withIdentifier(1).withName("Charts").withIcon(R.drawable.drawer_chart);
-        PrimaryDrawerItem item3 = new PrimaryDrawerItem().withIdentifier(1).withName("Savings").withIcon(R.drawable.drawer_safe);
-        PrimaryDrawerItem item4 = new PrimaryDrawerItem().withIdentifier(1).withName("Debts").withIcon(R.drawable.drawer_debt);
+        PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName("Lịch sử").withIcon(R.drawable.drawer_history);
+        PrimaryDrawerItem item2 = new PrimaryDrawerItem().withIdentifier(1).withName("Thống kê").withIcon(R.drawable.drawer_chart);
+        PrimaryDrawerItem item3 = new PrimaryDrawerItem().withIdentifier(1).withName("Tiết kiệm").withIcon(R.drawable.drawer_safe);
+        PrimaryDrawerItem item4 = new PrimaryDrawerItem().withIdentifier(1).withName("Sổ nợ").withIcon(R.drawable.drawer_debt);
 
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(context)
@@ -55,6 +55,6 @@ public class SideBar {
                     }
                 })
                 .build();
-        result.addStickyFooterItem(new PrimaryDrawerItem().withName("Settings").withIcon(R.drawable.setting));
+        result.addStickyFooterItem(new PrimaryDrawerItem().withName("Cài đặt").withIcon(R.drawable.setting));
     }
 }
