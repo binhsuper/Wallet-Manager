@@ -72,6 +72,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_20sdp"
                 android:hint="Nhập email"
+                android:lines="1"
+                android:inputType="textEmailAddress"
                 android:textSize="@dimen/_12sdp"
                 android:background="@null"/>
         </LinearLayout>
@@ -99,6 +101,7 @@
                 android:textSize="@dimen/_12sdp"
                 android:inputType="textPassword"
                 android:hint="Nhập mật khẩu"
+                android:lines="1"
                 android:background="@null"/>
         </LinearLayout>
 

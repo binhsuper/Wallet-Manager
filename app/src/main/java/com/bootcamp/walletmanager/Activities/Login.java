@@ -2,6 +2,8 @@ package com.bootcamp.walletmanager.Activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -56,30 +58,17 @@ public class Login extends CustomActivity {
     }
 
     public void login() {
-        Log.d(TAG, "Login");
+        loginBtn.setEnabled(false);
+        String email = emailInput.getText().toString();
+        String password = passwordInput.getText().toString();
 
+        // TODO: Implement authentication logic.
         if (!validate()) {
             onLoginFailed();
             return;
         }
 
-        loginBtn.setEnabled(false);
-
-        String email = emailInput.getText().toString();
-        String password = passwordInput.getText().toString();
-
-        // TODO: Implement your own authentication logic here.
-
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onLoginSuccess or onLoginFailed
-                        onLoginSuccess();
-                        // onLoginFailed();
-                    }
-                }, 3000);
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -88,6 +77,7 @@ public class Login extends CustomActivity {
 
                 // TODO: Implement successful signup logic here
                 // By default we just finish the Activity and log them in automatically
+                setResult(RESULT_OK, null);
                 this.finish();
             }
         }
@@ -95,12 +85,13 @@ public class Login extends CustomActivity {
 
     public void onLoginSuccess() {
         loginBtn.setEnabled(true);
+        Toast.makeText(getBaseContext(), "Đăng nhập thành công", Toast.LENGTH_LONG).show();
+        setResult(RESULT_OK, null);
         finish();
     }
 
     public void onLoginFailed() {
-        Toast.makeText(getBaseContext(), "Đăng nhập không thành công", Toast.LENGTH_LONG).show();
-
+        Toast.makeText(getBaseContext(), "Sai email hoặc mật khẩu", Toast.LENGTH_LONG).show();
         loginBtn.setEnabled(true);
     }
 
@@ -123,8 +114,8 @@ public class Login extends CustomActivity {
             emailInput.setError(null);
         }
 
-        if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            passwordInput.setError("Sai email hoặc mật khẩu");
+        if (password.isEmpty() || password.length() < 4) {
+            passwordInput.setError("mật khẩu phải ít nhất 4 kí tự");
             valid = false;
         } else {
             passwordInput.setError(null);

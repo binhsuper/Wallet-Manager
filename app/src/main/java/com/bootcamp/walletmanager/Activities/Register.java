@@ -1,6 +1,7 @@
 package com.bootcamp.walletmanager.Activities;
 
 import android.app.ProgressDialog;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -50,29 +51,18 @@ public class Register extends CustomActivity {
     public void signup() {
         Log.d(TAG, "Signup");
 
-        if (!validate()) {
-            onSignupFailed();
-            return;
-        }
-
         registerBtn.setEnabled(false);
 
         String name = usernameInput.getText().toString();
         String email = emailInput.getText().toString();
         String password = passwordInput.getText().toString();
-        String reEnterPassword = confirmPasswordInput.getText().toString();
 
-        // TODO: Implement your own signup logic here.
+        // TODO: Create new user account.
+        if (!validate()) {
+            onSignupFailed();
+            return;
+        }
 
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onSignupSuccess or onSignupFailed
-                        // depending on success
-                        onSignupSuccess();
-                        // onSignupFailed();
-                    }
-                }, 3000);
     }
 
 
@@ -83,7 +73,7 @@ public class Register extends CustomActivity {
     }
 
     public void onSignupFailed() {
-        Toast.makeText(getBaseContext(), "Đăng nhập không thành công", Toast.LENGTH_LONG).show();
+        Toast.makeText(getBaseContext(), "Đăng ký không thành công", Toast.LENGTH_LONG).show();
 
         registerBtn.setEnabled(true);
     }

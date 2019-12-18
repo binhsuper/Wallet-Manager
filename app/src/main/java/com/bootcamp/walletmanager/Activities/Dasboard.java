@@ -2,7 +2,9 @@ package com.bootcamp.walletmanager.Activities;
 
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,17 +22,24 @@ import android.support.v7.widget.Toolbar;
 
 import com.bootcamp.walletmanager.Adapter.RecordAdapter;
 import com.bootcamp.walletmanager.Adapter.WalletAdapter;
+import com.bootcamp.walletmanager.Datamodel.Account;
 import com.bootcamp.walletmanager.Datamodel.RecordData;
 import com.bootcamp.walletmanager.Datamodel.SideBar;
 import com.bootcamp.walletmanager.Datamodel.WalletData;
 import com.bootcamp.walletmanager.R;
 
-public class Dasboard extends CustomActivity {
+public class Dasboard extends CustomActivity implements SideBar.MenuItemSelected {
 
+    public int LOGIN_SUCCESSFULLY = 0;
+
+    // TODO: create data source.
     WalletData walletData = new WalletData();
     RecordData recordData = new RecordData();
+    SideBar sideBar;
 
-    String TAG = "Main";
+    // TODO: get logged account.
+
+    String TAG = "useraccount";
     Boolean isFABOpen = false;
     FloatingActionButton fab;
     LinearLayout fab1, fab2;
@@ -40,20 +49,31 @@ public class Dasboard extends CustomActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        openLoginPage();
 
+        openLoginPage();
         configureRecyclerViews();
         countBalance();
 
         configureActionBar();
         configureFloatingBtn();
 
-
     }
 
+    // TODO: implement user login/register.
     private void openLoginPage() {
         Intent intent = new Intent(this, Login.class);
-        startActivity(intent);
+        startActivityForResult(intent, LOGIN_SUCCESSFULLY);
+    }
+
+    // TODO: User login/register succesfully.
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == LOGIN_SUCCESSFULLY) {
+            if(resultCode == RESULT_OK) {
+
+            }
+        }
     }
 
     private void configureFloatingBtn() {
@@ -67,6 +87,8 @@ public class Dasboard extends CustomActivity {
         addWalletBtn = (FloatingActionButton) findViewById(R.id.addWalletBtn);
 
         final Intent dealIntent = new Intent(this, CreateDeal.class);
+
+        // TODO: create deal button onclick.
         addDealBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +97,7 @@ public class Dasboard extends CustomActivity {
             }
         });
 
+        // TODO: create wallet button onclick.
         final Intent walletIntent = new Intent(this, CreateWallet.class);
         addWalletBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,10 +171,12 @@ public class Dasboard extends CustomActivity {
             }
         });
 
-        SideBar sideBar = new SideBar(this, toolbar);
+        sideBar = new SideBar(this, toolbar, this);
     }
 
     private void countBalance() {
+        // TODO: Count the amount of all wallets.
+
         TextView balance = findViewById(R.id.accountBalance);
         int value = 0;
         for (int i = 0; i < walletData.getWallet().size(); i++) {
@@ -184,5 +209,34 @@ public class Dasboard extends CustomActivity {
         }else{
             closeFABMenu();
         }
+    }
+
+    //TODO: Side bar item onclick functions
+
+
+    @Override
+    public void onHistorySelected() {
+
+    }
+
+    @Override
+    public void onChartSelected() {
+
+    }
+
+    @Override
+    public void onSavingSelected() {
+
+    }
+
+    @Override
+    public void onDebtSelected() {
+
+    }
+
+    @Override
+    public void onSettingSelected() {
+        openLoginPage();
+        sideBar.mDrawer.closeDrawer();
     }
 }
