@@ -23,11 +23,15 @@ import android.support.v7.widget.Toolbar;
 
 import com.bootcamp.walletmanager.Adapter.RecordAdapter;
 import com.bootcamp.walletmanager.Adapter.WalletAdapter;
+import com.bootcamp.walletmanager.Application.LoggedAccount;
 import com.bootcamp.walletmanager.Datamodel.Account;
 import com.bootcamp.walletmanager.Datamodel.RecordData;
 import com.bootcamp.walletmanager.Datamodel.SideBar;
 import com.bootcamp.walletmanager.Datamodel.WalletData;
 import com.bootcamp.walletmanager.R;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class Dasboard extends CustomActivity implements SideBar.MenuItemSelected {
 
@@ -37,9 +41,6 @@ public class Dasboard extends CustomActivity implements SideBar.MenuItemSelected
     WalletData walletData = new WalletData();
     RecordData recordData = new RecordData();
     SideBar sideBar;
-
-    // TODO: get logged account.
-    Account loggedAccount = new Account();
 
     String TAG = "useraccount";
     Boolean isFABOpen = false;
@@ -53,12 +54,7 @@ public class Dasboard extends CustomActivity implements SideBar.MenuItemSelected
         setContentView(R.layout.activity_main);
 
         openLoginPage();
-        configureRecyclerViews();
-        countBalance();
-
         configureActionBar();
-        configureFloatingBtn();
-
     }
 
     // TODO: implement user login/register.
@@ -73,11 +69,10 @@ public class Dasboard extends CustomActivity implements SideBar.MenuItemSelected
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == LOGIN_SUCCESSFULLY) {
             if(resultCode == RESULT_OK) {
-                loggedAccount.setID(data.getStringExtra("ID"));
-                loggedAccount.setName(data.getStringExtra("userName"));
-                loggedAccount.setPassword(data.getStringExtra("userPassword"));
-                loggedAccount.setEmail(data.getStringExtra("userEmail"));
                 configureActionBar();
+                configureRecyclerViews();
+                countBalance();
+                configureFloatingBtn();
             }
         }
     }
@@ -177,7 +172,7 @@ public class Dasboard extends CustomActivity implements SideBar.MenuItemSelected
             }
         });
 
-        sideBar = new SideBar(this, toolbar, loggedAccount.getName(), loggedAccount.getEmail(), this);
+        sideBar = new SideBar(this, toolbar, LoggedAccount.getCurrentLogin().getName(), LoggedAccount.getCurrentLogin().getEmail(), this);
     }
 
     private void countBalance() {
@@ -241,9 +236,19 @@ public class Dasboard extends CustomActivity implements SideBar.MenuItemSelected
     }
 
     @Override
-    public void onSettingSelected() {
+    public void onLogoutSelected() {
+        logOff();
         openLoginPage();
-        getCreatedAccounts();
         sideBar.mDrawer.closeDrawer();
+    }
+
+    public void logOff() {
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                RealmResults<Account> persons = realm.where(Account.class).equalTo("logged", true).findAll();
+                persons.setBoolean("logged", false);
+            }
+        });
     }
 }

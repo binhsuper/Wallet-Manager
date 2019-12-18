@@ -60,7 +60,6 @@ public class CreateWallet extends CustomActivity {
                     Toast toast = Toast.makeText(getApplicationContext(), "Tên ví phải chứa ít nhất 6 kí tự", Toast.LENGTH_SHORT);
                     toast.show();
                 }
-
             }
         });
     }

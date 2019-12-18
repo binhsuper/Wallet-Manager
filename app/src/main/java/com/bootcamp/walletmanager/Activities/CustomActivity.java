@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.MediaSync;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -50,7 +51,6 @@ public class CustomActivity extends AppCompatActivity {
             Log.d(TAG, "logged: " + accounts.get(i).isLogged());
             Log.d(TAG, "password: " + accounts.get(i).getPassword());
             Log.d(TAG, " ");
-
         }
     }
 
@@ -60,6 +60,9 @@ public class CustomActivity extends AppCompatActivity {
         for (int i = 0; i < accounts.size(); i++) {
             if (email.equals(accounts.get(i).getEmail())) {
                 account = accounts.get(i);
+                realm.beginTransaction();
+                account.setLogged(true);
+                realm.commitTransaction();
             }
         }
         return account;

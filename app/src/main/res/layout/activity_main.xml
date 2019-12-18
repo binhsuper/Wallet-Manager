@@ -59,7 +59,7 @@
                 android:layout_marginStart="@dimen/_12sdp"
                 android:layout_marginTop="@dimen/_16sdp"
                 android:layout_marginBottom="@dimen/_16sdp"
-                android:text="Danh sách ví"
+                android:text="Danh sách ví :"
                 android:textColor="@color/text"
                 android:textSize="@dimen/_18sdp" />
 
@@ -93,7 +93,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_12sdp"
-                    android:text="$48000.00"
+                    android:text="$00.00"
                     android:textColor="#FF958F"
                     android:textSize="@dimen/_30sdp" />
 
@@ -113,7 +113,7 @@
                 android:layout_marginStart="@dimen/_12sdp"
                 android:layout_marginTop="@dimen/_16sdp"
                 android:layout_marginBottom="@dimen/_16sdp"
-                android:text="Giao dịch gần đây"
+                android:text="Giao dịch gần đây :"
                 android:textColor="@color/text"
                 android:textSize="@dimen/_18sdp" />
 

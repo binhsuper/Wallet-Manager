@@ -14,8 +14,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.bootcamp.walletmanager.Application.LoggedAccount;
 import com.bootcamp.walletmanager.Datamodel.Account;
 import com.bootcamp.walletmanager.R;
+
+import io.realm.RealmResults;
 
 public class Login extends CustomActivity {
 
@@ -37,6 +40,7 @@ public class Login extends CustomActivity {
         });
 
         getCreatedAccounts();
+        autoLogin();
         emailInput = (EditText) findViewById(R.id.email_input);
         passwordInput = (EditText) findViewById(R.id.password_input);
         loginBtn = (Button) findViewById(R.id.loginBtn);
@@ -48,6 +52,18 @@ public class Login extends CustomActivity {
             }
         });
         openRegisterPage();
+    }
+
+    private void autoLogin() {
+        RealmResults<Account> accounts = realm.where(Account.class).findAll();
+        for (int i = 0; i < accounts.size(); i++) {
+            Account account = accounts.get(i);
+            if (account.isLogged()) {
+                LoggedAccount.setCurrentLogin(account);
+                setResult(RESULT_OK);
+                finish();
+            }
+        }
     }
 
     private void openRegisterPage() {
@@ -85,13 +101,9 @@ public class Login extends CustomActivity {
         loginBtn.setEnabled(true);
         Toast.makeText(getBaseContext(), "Đăng nhập thành công", Toast.LENGTH_LONG).show();
         Account account = getLoggedAccount(emailInput.getText().toString());
-        Intent intent = new Intent();
-        intent.putExtra("userID", account.getID());
-        intent.putExtra("userName", account.getName());
-        intent.putExtra("userPassword", account.getPassword());
-        intent.putExtra("userEmail", account.getEmail());
+        LoggedAccount.setCurrentLogin(account);
 
-        setResult(RESULT_OK, intent);
+        setResult(RESULT_OK);
         finish();
     }
 

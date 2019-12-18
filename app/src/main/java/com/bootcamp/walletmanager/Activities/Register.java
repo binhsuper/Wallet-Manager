@@ -77,12 +77,12 @@ public class Register extends CustomActivity {
 
     public void onSignupSuccess() {
         registerBtn.setEnabled(true);
+        Toast.makeText(getBaseContext(), "Đăng ký thành công", Toast.LENGTH_LONG).show();
         finish();
     }
 
     public void onSignupFailed() {
         Toast.makeText(getBaseContext(), "Đăng ký không thành công", Toast.LENGTH_LONG).show();
-
         registerBtn.setEnabled(true);
     }
 

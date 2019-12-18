@@ -27,7 +27,7 @@ public class SideBar {
         PrimaryDrawerItem item2 = new PrimaryDrawerItem().withIdentifier(2).withName("Thống kê").withIcon(R.drawable.drawer_chart);
         PrimaryDrawerItem item3 = new PrimaryDrawerItem().withIdentifier(3).withName("Tiết kiệm").withIcon(R.drawable.drawer_safe);
         PrimaryDrawerItem item4 = new PrimaryDrawerItem().withIdentifier(4).withName("Sổ nợ").withIcon(R.drawable.drawer_debt);
-        PrimaryDrawerItem item5 = new PrimaryDrawerItem().withIdentifier(5).withName("Cài đặt").withIcon(R.drawable.setting);
+        PrimaryDrawerItem item5 = new PrimaryDrawerItem().withIdentifier(5).withName("Đăng xuất").withIcon(R.drawable.setting);
 
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(context)
@@ -58,7 +58,7 @@ public class SideBar {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         if (drawerItem.getIdentifier() == 5)
-                            mMenuItemSelected.onSettingSelected();
+                            mMenuItemSelected.onLogoutSelected();
 
                         return true;
                     }
@@ -73,6 +73,6 @@ public class SideBar {
         void onChartSelected();
         void onSavingSelected();
         void onDebtSelected();
-        void onSettingSelected();
+        void onLogoutSelected();
     }
 }
