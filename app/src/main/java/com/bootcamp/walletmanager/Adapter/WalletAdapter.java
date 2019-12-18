@@ -44,7 +44,7 @@ public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.WalletView
         holder.background.setBackgroundColor(color);
 
         holder.walletName.setText(mWallets.get(position).getName());
-        holder.money.setText("$" + mWallets.get(position).getAmount() + ".00");
+        holder.money.setText(mWallets.get(position).getAmount() + ".00 đ");
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

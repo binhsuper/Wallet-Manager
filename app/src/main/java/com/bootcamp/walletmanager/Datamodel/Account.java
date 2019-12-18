@@ -8,15 +8,13 @@ public class Account extends RealmObject {
     private String ID;
 
     private String email;
-
-    public String getID() {
-        return ID;
-    }
-
     private String name;
     private String password;
     private boolean logged;
 
+    public String getID() {
+        return ID;
+    }
     public String getEmail() {
         return email;
     }

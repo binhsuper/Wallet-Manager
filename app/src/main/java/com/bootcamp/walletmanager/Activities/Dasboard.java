@@ -2,12 +2,8 @@ package com.bootcamp.walletmanager.Activities;
 
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -180,19 +176,19 @@ public class Dasboard extends CustomActivity implements SideBar.MenuItemSelected
 
         TextView balance = findViewById(R.id.accountBalance);
         int value = 0;
-        for (int i = 0; i < walletData.getWallet().size(); i++) {
-            value += walletData.getWallet().get(i).getAmount();
+        for (int i = 0; i < walletData.getWalletArray().size(); i++) {
+            value += walletData.getWalletArray().get(i).getAmount();
         }
         balance.setText(Integer.toString(value) + ".00 đ");
     }
 
     private void configureRecyclerViews() {
-
         RecyclerView walletsView = findViewById(R.id.wallets);
         walletsView.setHasFixedSize(true);
         LinearLayoutManager walletLayout = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         walletsView.setLayoutManager(walletLayout);
-        WalletAdapter walletAdapter = new WalletAdapter(this ,walletData.getWallet());
+        WalletAdapter walletAdapter = new WalletAdapter(this ,walletData.getWalletArray());
+        walletAdapter.notifyDataSetChanged();
         walletsView.setAdapter(walletAdapter);
 
         RecyclerView records = findViewById(R.id.records);
@@ -200,6 +196,7 @@ public class Dasboard extends CustomActivity implements SideBar.MenuItemSelected
         LinearLayoutManager recordLayout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         records.setLayoutManager(recordLayout);
         RecordAdapter recordAdapter = new RecordAdapter(this , recordData.getRecords());
+        recordAdapter.notifyDataSetChanged();
         records.setAdapter(recordAdapter);
     }
 

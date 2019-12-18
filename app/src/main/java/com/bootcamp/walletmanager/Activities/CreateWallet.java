@@ -1,5 +1,6 @@
 package com.bootcamp.walletmanager.Activities;
 
+import android.content.Intent;
 import android.provider.ContactsContract;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.bootcamp.walletmanager.R;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class CreateWallet extends CustomActivity {
 
@@ -51,10 +56,11 @@ public class CreateWallet extends CustomActivity {
             public void onClick(View v) {
                 String[] userInput = getTextInput();
                 if (userInput != null) {
-                    for (int i = 0; i < userInput.length; i++) {
-                        Log.d(TAG, "input: " + userInput[i] + spinner.getSelectedItem().toString());
-                        finish();
-                    }
+                    //TODO: Create new wallet
+
+                    String currentTime = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
+                    createNewWallet(userInput[0], Integer.parseInt(userInput[1]), spinner.getSelectedItemPosition() + 1, currentTime);
+                    finish();
                 }
                 else {
                     Toast toast = Toast.makeText(getApplicationContext(), "Tên ví phải chứa ít nhất 6 kí tự", Toast.LENGTH_SHORT);

@@ -13,7 +13,11 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.bootcamp.walletmanager.Datamodel.Account;
+import com.bootcamp.walletmanager.Datamodel.Wallets;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.UUID;
 
 import io.realm.Realm;
@@ -29,6 +33,9 @@ public class CustomActivity extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         realm = Realm.getDefaultInstance();
     }
+
+
+    // TODO: User account data persistence functions.
 
     public void createNewAccount(final String name, final String email, final String password) {
         realm.executeTransaction(new Realm.Transaction() {
@@ -81,6 +88,37 @@ public class CustomActivity extends AppCompatActivity {
         return currentLogin;
     }
 
+
+    // TODO: Create wallet data functions.
+
+    public void createNewWallet(final String name, final int amount, final int walletType, final String dayCreated) {
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                Wallets wallet = realm.createObject(Wallets.class); // Create a new object
+                wallet.setName(name);
+                wallet.setAmount(amount);
+                wallet.setWalletType(walletType);
+                wallet.setDayCreated(dayCreated);
+            }
+        });
+    }
+
+    public void getCreatedWallets() {
+        RealmResults<Wallets> wallets = realm.where(Wallets.class).findAll();
+        for (int i = 0; i < wallets.size(); i++) {
+            Log.d(TAG, "name: " + wallets.get(i).getName());
+            Log.d(TAG, "amount: " + wallets.get(i).getAmount());
+            Log.d(TAG, "type: " + wallets.get(i).getWalletType());
+            Log.d(TAG, "dayCreated: " + wallets.get(i).getDayCreated());
+            Log.d(TAG, " ");
+        }
+    }
+
+
+
+    // TODO: Create deal data functions.
+
     public void hideKeyboard() {
         View view = this.getCurrentFocus();
         if (view != null) {
@@ -88,4 +126,5 @@ public class CustomActivity extends AppCompatActivity {
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
+
 }

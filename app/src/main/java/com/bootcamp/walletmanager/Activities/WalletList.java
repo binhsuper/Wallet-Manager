@@ -5,11 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.bootcamp.walletmanager.Adapter.WalletAdapter;
 import com.bootcamp.walletmanager.Adapter.WalletListAdapter;
 import com.bootcamp.walletmanager.Datamodel.WalletData;
 import com.bootcamp.walletmanager.Datamodel.Wallets;
@@ -44,7 +42,7 @@ public class WalletList extends AppCompatActivity implements WalletListAdapter.W
         walletsView.setHasFixedSize(true);
         LinearLayoutManager walletLayout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         walletsView.setLayoutManager(walletLayout);
-        WalletListAdapter walletListAdapter = new WalletListAdapter(this ,walletData.getWallet(), this);
+        WalletListAdapter walletListAdapter = new WalletListAdapter(this ,walletData.getWalletArray(), this);
         walletsView.setAdapter(walletListAdapter);
     }
 

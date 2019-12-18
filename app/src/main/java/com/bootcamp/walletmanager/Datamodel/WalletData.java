@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
+
 public class WalletData {
     public enum WalletType {
         NORMAL(1),
@@ -34,10 +37,10 @@ public class WalletData {
         }
     }
 
-    private List<Wallets> wallet;
+    private List<Wallets> walletArray;
 
-    public List<Wallets> getWallet() {
-        return wallet;
+    public List<Wallets> getWalletArray() {
+        return walletArray;
     }
 
     public WalletData() {
@@ -45,10 +48,13 @@ public class WalletData {
     }
 
     public void initializeData(){
-        wallet = new ArrayList<>();
-        wallet.add(new Wallets("Bank account", 40000, WalletType.BANK_ACCOUNT.getValue()));
-        wallet.add(new Wallets("Cash", 200000, WalletType.NORMAL.getValue()));
-        wallet.add(new Wallets("Saving", 300000, WalletType.SAVINGS.getValue()));
+        walletArray = new ArrayList<>();
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<Wallets> wallets = realm.where(Wallets.class).findAll();
+        for (int i = 0; i < wallets.size(); i++) {
+            Wallets wallet = wallets.get(i);
+            walletArray.add(wallet);
+        }
     }
 
 }

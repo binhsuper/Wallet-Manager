@@ -7,12 +7,30 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class Wallets {
-    String name;
-    int amount;
-    int walletType;
-    String dayCreated = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
+import io.realm.Realm;
+import io.realm.RealmObject;
 
+public class Wallets extends RealmObject {
+    private String name;
+    private int amount;
+    private int walletType;
+    private String dayCreated;
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public void setWalletType(int walletType) {
+        this.walletType = walletType;
+    }
+
+    public void setDayCreated(String dayCreated) {
+        this.dayCreated = dayCreated;
+    }
 
     public String getName() {
         return name;
@@ -28,12 +46,6 @@ public class Wallets {
 
     public String getDayCreated() {
         return dayCreated;
-    }
-
-    public Wallets(String name, int amount, int walletType) {
-        this.name = name;
-        this.amount = amount;
-        this.walletType = walletType;
     }
 }
 
