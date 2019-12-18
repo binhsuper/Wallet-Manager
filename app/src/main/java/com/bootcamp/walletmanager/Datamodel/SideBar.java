@@ -19,10 +19,10 @@ public class SideBar {
     MenuItemSelected mMenuItemSelected;
     public Drawer mDrawer;
 
-    public SideBar(Activity context, Toolbar toolbar, MenuItemSelected menuItemSelected) {
+    public SideBar(Activity context, Toolbar toolbar, String name, String email, MenuItemSelected menuItemSelected) {
         mMenuItemSelected = menuItemSelected;
 
-        final IProfile profile = new ProfileDrawerItem().withName("user").withEmail("user@gmail.com").withIcon(R.drawable.profile_img);
+        final IProfile profile = new ProfileDrawerItem().withName(name).withEmail(email).withIcon(R.drawable.profile_img);
         PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName("Lịch sử").withIcon(R.drawable.drawer_history);
         PrimaryDrawerItem item2 = new PrimaryDrawerItem().withIdentifier(2).withName("Thống kê").withIcon(R.drawable.drawer_chart);
         PrimaryDrawerItem item3 = new PrimaryDrawerItem().withIdentifier(3).withName("Tiết kiệm").withIcon(R.drawable.drawer_safe);

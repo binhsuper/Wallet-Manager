@@ -62,13 +62,21 @@ public class Register extends CustomActivity {
             onSignupFailed();
             return;
         }
+        else {
+            createNewAccount(name, email, password);
+            onSignupSuccess();
+        }
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        realm.close();
+    }
 
     public void onSignupSuccess() {
         registerBtn.setEnabled(true);
-        setResult(RESULT_OK, null);
         finish();
     }
 

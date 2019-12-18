@@ -2,6 +2,7 @@ package com.bootcamp.walletmanager.Activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.constraint.ConstraintLayout;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.bootcamp.walletmanager.Datamodel.Account;
 import com.bootcamp.walletmanager.R;
 
 public class Login extends CustomActivity {
@@ -33,6 +35,8 @@ public class Login extends CustomActivity {
                 hideKeyboard();
             }
         });
+
+        getCreatedAccounts();
         emailInput = (EditText) findViewById(R.id.email_input);
         passwordInput = (EditText) findViewById(R.id.password_input);
         loginBtn = (Button) findViewById(R.id.loginBtn);
@@ -52,7 +56,7 @@ public class Login extends CustomActivity {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(intent, 0);
+                startActivity(intent);
             }
         });
     }
@@ -67,18 +71,12 @@ public class Login extends CustomActivity {
             onLoginFailed();
             return;
         }
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 0) {
-            if (resultCode == RESULT_OK) {
-
-                // TODO: Implement successful signup logic here
-                // By default we just finish the Activity and log them in automatically
-                setResult(RESULT_OK, null);
-                this.finish();
+        else {
+            if (checkLogin(email, password)) {
+                onLoginSuccess();
+            }
+            else {
+                onLoginFailed();
             }
         }
     }
@@ -86,7 +84,14 @@ public class Login extends CustomActivity {
     public void onLoginSuccess() {
         loginBtn.setEnabled(true);
         Toast.makeText(getBaseContext(), "Đăng nhập thành công", Toast.LENGTH_LONG).show();
-        setResult(RESULT_OK, null);
+        Account account = getLoggedAccount(emailInput.getText().toString());
+        Intent intent = new Intent();
+        intent.putExtra("userID", account.getID());
+        intent.putExtra("userName", account.getName());
+        intent.putExtra("userPassword", account.getPassword());
+        intent.putExtra("userEmail", account.getEmail());
+
+        setResult(RESULT_OK, intent);
         finish();
     }
 

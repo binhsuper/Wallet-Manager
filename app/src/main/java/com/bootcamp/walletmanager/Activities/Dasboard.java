@@ -2,6 +2,7 @@ package com.bootcamp.walletmanager.Activities;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.Nullable;
@@ -38,6 +39,7 @@ public class Dasboard extends CustomActivity implements SideBar.MenuItemSelected
     SideBar sideBar;
 
     // TODO: get logged account.
+    Account loggedAccount = new Account();
 
     String TAG = "useraccount";
     Boolean isFABOpen = false;
@@ -71,7 +73,11 @@ public class Dasboard extends CustomActivity implements SideBar.MenuItemSelected
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == LOGIN_SUCCESSFULLY) {
             if(resultCode == RESULT_OK) {
-
+                loggedAccount.setID(data.getStringExtra("ID"));
+                loggedAccount.setName(data.getStringExtra("userName"));
+                loggedAccount.setPassword(data.getStringExtra("userPassword"));
+                loggedAccount.setEmail(data.getStringExtra("userEmail"));
+                configureActionBar();
             }
         }
     }
@@ -171,7 +177,7 @@ public class Dasboard extends CustomActivity implements SideBar.MenuItemSelected
             }
         });
 
-        sideBar = new SideBar(this, toolbar, this);
+        sideBar = new SideBar(this, toolbar, loggedAccount.getName(), loggedAccount.getEmail(), this);
     }
 
     private void countBalance() {
@@ -237,6 +243,7 @@ public class Dasboard extends CustomActivity implements SideBar.MenuItemSelected
     @Override
     public void onSettingSelected() {
         openLoginPage();
+        getCreatedAccounts();
         sideBar.mDrawer.closeDrawer();
     }
 }
