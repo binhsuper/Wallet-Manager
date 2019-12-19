@@ -92,6 +92,20 @@ public class CustomActivity extends AppCompatActivity {
 
     // TODO: Create wallet data functions.
 
+    public Boolean findExistedWallet() {
+        Boolean isExisted = false;
+        realm.beginTransaction();
+        RealmResults<Wallets> wallets = realm.where(Wallets.class).findAll();
+        for (int i = 0; i < wallets.size(); i++) {
+            Wallets wallet = wallets.get(i);
+            if (wallet != null) {
+                isExisted = true;
+            }
+        }
+        realm.commitTransaction();
+        return isExisted;
+    }
+
     public void createNewWallet(final String name, final int amount, final int walletType, final String dayCreated) {
         realm.executeTransaction(new Realm.Transaction() {
             @Override

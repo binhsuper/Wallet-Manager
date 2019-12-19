@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import com.bootcamp.walletmanager.Adapter.RecordAdapter;
 import com.bootcamp.walletmanager.Adapter.WalletAdapter;
@@ -90,7 +91,12 @@ public class Dasboard extends CustomActivity implements SideBar.MenuItemSelected
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: " + "creating deal");
-                startActivity(dealIntent);
+                if (!findExistedWallet()) {
+                    Toast.makeText(getBaseContext(), "Bạn phải tạo ví trước", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    startActivity(dealIntent);
+                }
             }
         });
 
