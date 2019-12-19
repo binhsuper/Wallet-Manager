@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bootcamp.walletmanager.Datamodel.WalletData;
 import com.bootcamp.walletmanager.Datamodel.Wallets;
 import com.bootcamp.walletmanager.R;
 
@@ -50,19 +49,19 @@ public class WalletListAdapter extends RecyclerView.Adapter<WalletListAdapter.Wa
         holder.date.setText(mWallets.get(postition).getDayCreated());
 
         int walletType = mWallets.get(postition).getWalletType();
-        if (walletType == WalletData.WalletType.NORMAL.getValue()) {
+        if (walletType == Wallets.WalletType.NORMAL.getValue()) {
             holder.type.setText("Ví thường");
             holder.typeImg.setImageResource(R.drawable.wallet_wallet_icon);
         }
-        else if (walletType == WalletData.WalletType.BANK_ACCOUNT.getValue()) {
+        else if (walletType == Wallets.WalletType.BANK_ACCOUNT.getValue()) {
             holder.type.setText("Tài khoản ngân hàng");
             holder.typeImg.setImageResource(R.drawable.wallet_bank);
         }
-        else if (walletType == WalletData.WalletType.CREDIT_CARD.getValue()) {
+        else if (walletType == Wallets.WalletType.CREDIT_CARD.getValue()) {
             holder.type.setText("Thẻ tín dụng");
             holder.typeImg.setImageResource(R.drawable.wallet_credit_card);
         }
-        else if (walletType == WalletData.WalletType.SAVINGS.getValue()) {
+        else if (walletType == Wallets.WalletType.SAVINGS.getValue()) {
             holder.type.setText("Ví tiết kiệm");
             holder.typeImg.setImageResource(R.drawable.wallet_saving);
         }

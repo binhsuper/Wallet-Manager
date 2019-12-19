@@ -72,7 +72,7 @@ public class CreateDeal extends CustomActivity {
                     String wallet = walletInput.getText().toString();
                     String notes = noteInput.getText().toString();
 
-                    createNewDeal(money, group, currentTime, wallet, notes, dealKind);
+                    createNewRecord(money, group, currentTime, wallet, notes, dealKind);
                     updateWallet(wallet, dealKind, Integer.parseInt(money));
                     finish();
                     startActivity(intent);

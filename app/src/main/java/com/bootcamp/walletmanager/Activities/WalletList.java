@@ -9,13 +9,11 @@ import android.view.View;
 import android.widget.Button;
 
 import com.bootcamp.walletmanager.Adapter.WalletListAdapter;
-import com.bootcamp.walletmanager.Datamodel.WalletData;
+import com.bootcamp.walletmanager.Application.LoggedAccount;
 import com.bootcamp.walletmanager.Datamodel.Wallets;
 import com.bootcamp.walletmanager.R;
 
 public class WalletList extends AppCompatActivity implements WalletListAdapter.WalletSelected {
-
-    WalletData walletData = new WalletData();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +40,7 @@ public class WalletList extends AppCompatActivity implements WalletListAdapter.W
         walletsView.setHasFixedSize(true);
         LinearLayoutManager walletLayout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         walletsView.setLayoutManager(walletLayout);
-        WalletListAdapter walletListAdapter = new WalletListAdapter(this ,walletData.getWalletArray(), this);
+        WalletListAdapter walletListAdapter = new WalletListAdapter(this , LoggedAccount.getCurrentLogin().getUserWallets(), this);
         walletsView.setAdapter(walletListAdapter);
     }
 

@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.bootcamp.walletmanager.Application.LoggedAccount;
 import com.bootcamp.walletmanager.Datamodel.Account;
 import com.bootcamp.walletmanager.Datamodel.Records;
 import com.bootcamp.walletmanager.Datamodel.Wallets;
@@ -93,17 +94,12 @@ public class CustomActivity extends AppCompatActivity {
     // TODO: Create wallet data functions.
 
     public Boolean findExistedWallet() {
-        Boolean isExisted = false;
-        realm.beginTransaction();
-        RealmResults<Wallets> wallets = realm.where(Wallets.class).findAll();
-        for (int i = 0; i < wallets.size(); i++) {
-            Wallets wallet = wallets.get(i);
-            if (wallet != null) {
-                isExisted = true;
-            }
+        if (LoggedAccount.getCurrentLogin().getUserWallets().size() != 0) {
+            return true;
         }
-        realm.commitTransaction();
-        return isExisted;
+        else {
+            return false;
+        }
     }
 
     public void createNewWallet(final String name, final int amount, final int walletType, final String dayCreated) {
@@ -115,6 +111,7 @@ public class CustomActivity extends AppCompatActivity {
                 wallet.setAmount(amount);
                 wallet.setWalletType(walletType);
                 wallet.setDayCreated(dayCreated);
+                LoggedAccount.getCurrentLogin().getUserWallets().add(wallet);
             }
         });
     }
@@ -143,7 +140,7 @@ public class CustomActivity extends AppCompatActivity {
     }
 
     // TODO: Create deal data functions.
-    public void createNewDeal(final String amount, final String group, final String date, final String fromWallet, final String notes, final String kind) {
+    public void createNewRecord(final String amount, final String group, final String date, final String fromWallet, final String notes, final String kind) {
         realm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
@@ -154,10 +151,10 @@ public class CustomActivity extends AppCompatActivity {
                 record.setFromWallet(fromWallet);
                 record.setNotes(notes);
                 record.setKind(kind);
+                LoggedAccount.getCurrentLogin().getUserRecords().add(record);
             }
         });
     }
-
 
     // TODO: Create deal data functions.
 

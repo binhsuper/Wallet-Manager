@@ -22,9 +22,7 @@ import com.bootcamp.walletmanager.Adapter.RecordAdapter;
 import com.bootcamp.walletmanager.Adapter.WalletAdapter;
 import com.bootcamp.walletmanager.Application.LoggedAccount;
 import com.bootcamp.walletmanager.Datamodel.Account;
-import com.bootcamp.walletmanager.Datamodel.RecordData;
 import com.bootcamp.walletmanager.Datamodel.SideBar;
-import com.bootcamp.walletmanager.Datamodel.WalletData;
 import com.bootcamp.walletmanager.R;
 
 import io.realm.Realm;
@@ -35,8 +33,6 @@ public class Dasboard extends CustomActivity implements SideBar.MenuItemSelected
     public int LOGIN_SUCCESSFULLY = 0;
 
     // TODO: create data source.
-    WalletData walletData = new WalletData();
-    RecordData recordData = new RecordData();
     SideBar sideBar;
 
     String TAG = "useraccount";
@@ -182,8 +178,8 @@ public class Dasboard extends CustomActivity implements SideBar.MenuItemSelected
 
         TextView balance = findViewById(R.id.accountBalance);
         int value = 0;
-        for (int i = 0; i < walletData.getWalletArray().size(); i++) {
-            value += walletData.getWalletArray().get(i).getAmount();
+        for (int i = 0; i < LoggedAccount.getCurrentLogin().getUserWallets().size(); i++) {
+            value += LoggedAccount.getCurrentLogin().getUserWallets().get(i).getAmount();
         }
         balance.setText(Integer.toString(value) + ".00 đ");
     }
@@ -193,14 +189,14 @@ public class Dasboard extends CustomActivity implements SideBar.MenuItemSelected
         walletsView.setHasFixedSize(true);
         LinearLayoutManager walletLayout = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         walletsView.setLayoutManager(walletLayout);
-        WalletAdapter walletAdapter = new WalletAdapter(this ,walletData.getWalletArray());
+        WalletAdapter walletAdapter = new WalletAdapter(this , LoggedAccount.getCurrentLogin().getUserWallets());
         walletsView.setAdapter(walletAdapter);
 
         RecyclerView records = findViewById(R.id.records);
         records.setHasFixedSize(true);
         LinearLayoutManager recordLayout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         records.setLayoutManager(recordLayout);
-        RecordAdapter recordAdapter = new RecordAdapter(this , recordData.getRecords());
+        RecordAdapter recordAdapter = new RecordAdapter(this , LoggedAccount.getCurrentLogin().getUserRecords());
         records.setAdapter(recordAdapter);
     }
 

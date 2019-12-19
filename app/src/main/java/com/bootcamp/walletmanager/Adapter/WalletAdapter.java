@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bootcamp.walletmanager.Datamodel.WalletData;
 import com.bootcamp.walletmanager.Datamodel.Wallets;
 import com.bootcamp.walletmanager.R;
 
@@ -50,19 +49,19 @@ public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.WalletView
             public void onClick(View v) {
                 Toast toast;
                 int walletType = mWallets.get(position).getWalletType();
-                if (walletType == WalletData.WalletType.NORMAL.getValue()) {
+                if (walletType == Wallets.WalletType.NORMAL.getValue()) {
                     toast = Toast.makeText(mContext, "Ví thường", Toast.LENGTH_SHORT);
                     toast.show();
                 }
-                else if (walletType == WalletData.WalletType.BANK_ACCOUNT.getValue()) {
+                else if (walletType == Wallets.WalletType.BANK_ACCOUNT.getValue()) {
                     toast = Toast.makeText(mContext, "bank account", Toast.LENGTH_SHORT);
                     toast.show();
                 }
-                else if (walletType == WalletData.WalletType.CREDIT_CARD.getValue()) {
+                else if (walletType == Wallets.WalletType.CREDIT_CARD.getValue()) {
                     toast = Toast.makeText(mContext, "credit card", Toast.LENGTH_SHORT);
                     toast.show();
                 }
-                else if (walletType == WalletData.WalletType.SAVINGS.getValue()) {
+                else if (walletType == Wallets.WalletType.SAVINGS.getValue()) {
                     toast = Toast.makeText(mContext, "saving account", Toast.LENGTH_SHORT);
                     toast.show();
                 }
