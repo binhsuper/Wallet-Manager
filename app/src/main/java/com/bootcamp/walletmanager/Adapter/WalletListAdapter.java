@@ -42,7 +42,7 @@ public class WalletListAdapter extends RecyclerView.Adapter<WalletListAdapter.Wa
     @Override
     public void onBindViewHolder(@NonNull WalletListAdapter.WalletListViewHolder holder, final int postition) {
         Random rnd = new Random();
-        int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+        int color = Color.argb(255, rnd.nextInt(200), rnd.nextInt(200), rnd.nextInt(200));
         holder.background.setBackgroundColor(color);
 
         holder.walletName.setText(mWallets.get(postition).getName());

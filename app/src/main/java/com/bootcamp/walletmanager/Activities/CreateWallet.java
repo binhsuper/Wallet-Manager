@@ -51,6 +51,7 @@ public class CreateWallet extends CustomActivity {
         });
 
         Button checkBtn = (Button) findViewById(R.id.walletCheckBtn);
+        final Intent intent = new Intent(this, Dasboard.class);
         checkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,6 +62,7 @@ public class CreateWallet extends CustomActivity {
                     String currentTime = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
                     createNewWallet(userInput[0], Integer.parseInt(userInput[1]), spinner.getSelectedItemPosition() + 1, currentTime);
                     finish();
+                    startActivity(intent);
                 }
                 else {
                     Toast toast = Toast.makeText(getApplicationContext(), "Tên ví phải chứa ít nhất 6 kí tự", Toast.LENGTH_SHORT);

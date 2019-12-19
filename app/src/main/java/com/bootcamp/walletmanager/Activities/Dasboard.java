@@ -188,7 +188,6 @@ public class Dasboard extends CustomActivity implements SideBar.MenuItemSelected
         LinearLayoutManager walletLayout = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         walletsView.setLayoutManager(walletLayout);
         WalletAdapter walletAdapter = new WalletAdapter(this ,walletData.getWalletArray());
-        walletAdapter.notifyDataSetChanged();
         walletsView.setAdapter(walletAdapter);
 
         RecyclerView records = findViewById(R.id.records);
@@ -196,7 +195,6 @@ public class Dasboard extends CustomActivity implements SideBar.MenuItemSelected
         LinearLayoutManager recordLayout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         records.setLayoutManager(recordLayout);
         RecordAdapter recordAdapter = new RecordAdapter(this , recordData.getRecords());
-        recordAdapter.notifyDataSetChanged();
         records.setAdapter(recordAdapter);
     }
 
