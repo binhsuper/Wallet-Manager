@@ -2,19 +2,50 @@ package com.bootcamp.walletmanager.Datamodel;
 
 import android.widget.ImageView;
 
-public class Records {
-    String name;
+import io.realm.RealmObject;
+
+public class Records extends RealmObject {
     String fromWallet;
+    String type;
     String date;
     String amount;
-    int typeImg;
+    String notes;
+    String kind;
 
-    public String getName() {
-        return name;
+    public void setKind(String kind) {
+        this.kind = kind;
+    }
+
+    public String getKind() {
+        return kind;
+    }
+
+    public void setFromWallet(String fromWallet) {
+        this.fromWallet = fromWallet;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
     public String getFromWallet() {
         return fromWallet;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public String getDate() {
@@ -25,15 +56,7 @@ public class Records {
         return amount;
     }
 
-    public int getTypeImg() {
-        return typeImg;
-    }
-
-    public Records(String name, String fromWallet, String date, String amount, int typeImg) {
-        this.name = name;
-        this.fromWallet = fromWallet;
-        this.date = date;
-        this.amount = amount;
-        this.typeImg = typeImg;
+    public String getNotes() {
+        return notes;
     }
 }

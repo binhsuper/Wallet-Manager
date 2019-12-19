@@ -27,20 +27,20 @@ public class DealTypeData {
 
     public void getSpendingType(){
         mTypes = new ArrayList<>();
-        mTypes.add(new DealType("Food", R.drawable.type_food, "spending"));
-        mTypes.add(new DealType("Groceries", R.drawable.type_groceries, "spending"));
-        mTypes.add(new DealType("Health", R.drawable.type_health,"spending"));
-        mTypes.add(new DealType("Transport", R.drawable.type_transport,"spending"));
-        mTypes.add(new DealType("Tax", R.drawable.type_tax,"spending"));
-        mTypes.add(new DealType("Other", R.drawable.type_other,"spending"));
+        mTypes.add(new DealType("Thực phẩm", R.drawable.type_food, "spending"));
+        mTypes.add(new DealType("Tạp hoá", R.drawable.type_groceries, "spending"));
+        mTypes.add(new DealType("Sức khoẻ", R.drawable.type_health,"spending"));
+        mTypes.add(new DealType("Di chuyển", R.drawable.type_transport,"spending"));
+        mTypes.add(new DealType("Hoá đơn", R.drawable.type_tax,"spending"));
+        mTypes.add(new DealType("Khác", R.drawable.type_other,"spending"));
     }
 
     public void getIncomeType(){
         mTypes = new ArrayList<>();
-        mTypes.add(new DealType("Gift", R.drawable.type_gift,"income"));
-        mTypes.add(new DealType("Salary", R.drawable.type_salary,"income"));
-        mTypes.add(new DealType("Sale", R.drawable.type_sale,"income"));
-        mTypes.add(new DealType("Reward", R.drawable.type_reward,"income"));
-        mTypes.add(new DealType("Other", R.drawable.type_other,"income"));
+        mTypes.add(new DealType("Quà tặng", R.drawable.type_gift,"income"));
+        mTypes.add(new DealType("Lương", R.drawable.type_salary,"income"));
+        mTypes.add(new DealType("Bán đồ", R.drawable.type_sale,"income"));
+        mTypes.add(new DealType("Thưởng", R.drawable.type_reward,"income"));
+        mTypes.add(new DealType("Khác", R.drawable.type_other,"income"));
     }
 }

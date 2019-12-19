@@ -5,6 +5,9 @@ import com.bootcamp.walletmanager.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
+
 public class RecordData {
     private List<Records> mRecords;
 
@@ -18,23 +21,11 @@ public class RecordData {
 
     private void initializeData(){
         mRecords = new ArrayList<>();
-        mRecords.add(new Records("Groceries", "Cash", "11/12/2019", "$20000.00",  R.drawable.type_groceries));
-        mRecords.add(new Records("Transport", "Bank account", "10/12/2019", "$50000.00",  R.drawable.type_transport));
-        mRecords.add(new Records("Food", "Bank account", "6/12/2019", "$40000.00",  R.drawable.type_food));
-        mRecords.add(new Records("Groceries", "Cash", "11/12/2019", "$20000.00",  R.drawable.type_groceries));
-        mRecords.add(new Records("Transport", "Bank account", "10/12/2019", "$50000.00",  R.drawable.type_transport));
-        mRecords.add(new Records("Food", "Bank account", "6/12/2019", "$40000.00",  R.drawable.type_food));
-        mRecords.add(new Records("Groceries", "Cash", "11/12/2019", "$20000.00",  R.drawable.type_groceries));
-        mRecords.add(new Records("Transport", "Bank account", "10/12/2019", "$50000.00",  R.drawable.type_transport));
-        mRecords.add(new Records("Food", "Bank account", "6/12/2019", "$40000.00",  R.drawable.type_food));
-        mRecords.add(new Records("Groceries", "Cash", "11/12/2019", "$20000.00",  R.drawable.type_groceries));
-        mRecords.add(new Records("Transport", "Bank account", "10/12/2019", "$50000.00",  R.drawable.type_transport));
-        mRecords.add(new Records("Food", "Bank account", "6/12/2019", "$40000.00",  R.drawable.type_food));
-        mRecords.add(new Records("Groceries", "Cash", "11/12/2019", "$20000.00",  R.drawable.type_groceries));
-        mRecords.add(new Records("Transport", "Bank account", "10/12/2019", "$50000.00",  R.drawable.type_transport));
-        mRecords.add(new Records("Food", "Bank account", "6/12/2019", "$40000.00",  R.drawable.type_food));
-        mRecords.add(new Records("Groceries", "Cash", "11/12/2019", "$20000.00",  R.drawable.type_groceries));
-        mRecords.add(new Records("Transport", "Bank account", "10/12/2019", "$50000.00",  R.drawable.type_transport));
-        mRecords.add(new Records("Food", "Bank account", "6/12/2019", "$40000.00",  R.drawable.type_food));
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<Records> Records = realm.where(Records.class).findAll();
+        for (int i = 0; i < Records.size(); i++) {
+            Records record = Records.get(i);
+            mRecords.add(record);
+        }
     }
 }

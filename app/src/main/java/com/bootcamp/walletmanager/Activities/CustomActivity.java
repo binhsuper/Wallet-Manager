@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.bootcamp.walletmanager.Datamodel.Account;
+import com.bootcamp.walletmanager.Datamodel.Records;
 import com.bootcamp.walletmanager.Datamodel.Wallets;
 
 import java.text.SimpleDateFormat;
@@ -104,17 +105,44 @@ public class CustomActivity extends AppCompatActivity {
         });
     }
 
-    public void getCreatedWallets() {
-        RealmResults<Wallets> wallets = realm.where(Wallets.class).findAll();
-        for (int i = 0; i < wallets.size(); i++) {
-            Log.d(TAG, "name: " + wallets.get(i).getName());
-            Log.d(TAG, "amount: " + wallets.get(i).getAmount());
-            Log.d(TAG, "type: " + wallets.get(i).getWalletType());
-            Log.d(TAG, "dayCreated: " + wallets.get(i).getDayCreated());
-            Log.d(TAG, " ");
-        }
+    public void updateWallet(final String name, final String type, final int amount) {
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                RealmResults<Wallets> wallets = realm.where(Wallets.class)
+                        .equalTo("name", name)
+                        .findAll();
+                for (int i = 0; i < wallets.size(); i++) {
+                    Wallets wallet = wallets.get(i);
+                    if (type.equals("spending")) {
+                        int amountAfter = wallet.getAmount() - amount;
+                        wallet.setAmount(amountAfter);
+                    }
+                    else {
+                        int amountAfter = wallet.getAmount() + amount;
+                        wallet.setAmount(amountAfter);
+                    }
+                }
+            }
+        });
+
     }
 
+    // TODO: Create deal data functions.
+    public void createNewDeal(final String amount, final String group, final String date, final String fromWallet, final String notes, final String kind) {
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                Records record = realm.createObject(Records.class); // Create a new object
+                record.setAmount(amount);
+                record.setType(group);
+                record.setDate(date);
+                record.setFromWallet(fromWallet);
+                record.setNotes(notes);
+                record.setKind(kind);
+            }
+        });
+    }
 
 
     // TODO: Create deal data functions.

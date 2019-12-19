@@ -1,6 +1,7 @@
 package com.bootcamp.walletmanager.Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -34,11 +35,51 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
 
     @Override
     public void onBindViewHolder(@NonNull RecordViewHolder holder, int position) {
-        holder.walletName.setText(mRecords.get(position).getName());
-        holder.money.setText(mRecords.get(position).getAmount());
-        holder.recordType.setText(mRecords.get(position).getFromWallet());
+        holder.walletName.setText(mRecords.get(position).getFromWallet());
+        holder.recordType.setText(mRecords.get(position).getType());
         holder.date.setText(mRecords.get(position).getDate());
-        holder.background.setImageResource(mRecords.get(position).getTypeImg());
+
+        if (mRecords.get(position).getKind().equals("spending")) {
+            holder.money.setText("- " +mRecords.get(position).getAmount() + " đ");
+            holder.money.setTextColor(Color.RED);
+        }
+        else {
+            holder.money.setText("+ " +mRecords.get(position).getAmount() + " đ");
+            holder.money.setTextColor(Color.GREEN);
+        }
+
+        switch (mRecords.get(position).getType()) {
+            case "Quà tặng" :
+                holder.background.setImageResource(R.drawable.type_gift);
+                break;
+            case "Lương" :
+                holder.background.setImageResource(R.drawable.type_salary);
+                break;
+            case "Bán đồ" :
+                holder.background.setImageResource(R.drawable.type_sale);
+                break;
+            case "Thưởng" :
+                holder.background.setImageResource(R.drawable.type_reward);
+                break;
+            case "Khác" :
+                holder.background.setImageResource(R.drawable.type_other);
+                break;
+            case "Thực phẩm" :
+                holder.background.setImageResource(R.drawable.type_food);
+                break;
+            case "Tạp hoá" :
+                holder.background.setImageResource(R.drawable.type_groceries);
+                break;
+            case "Sức khoẻ" :
+                holder.background.setImageResource(R.drawable.type_health);
+                break;
+            case "Di chuyển" :
+                holder.background.setImageResource(R.drawable.type_transport);
+                break;
+            case "Hoá đơn" :
+                holder.background.setImageResource(R.drawable.type_tax);
+                break;
+        }
 
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override

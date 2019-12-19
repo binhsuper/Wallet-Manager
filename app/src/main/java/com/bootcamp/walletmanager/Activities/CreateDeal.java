@@ -1,34 +1,30 @@
 package com.bootcamp.walletmanager.Activities;
 
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bootcamp.walletmanager.R;
 
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class CreateDeal extends CustomActivity {
     private String TAG = "DealInput";
     private EditText moneyInput, groupInput, dateInput, walletInput, noteInput;
+    private String dealKind;
     private ImageView groupImg;
     final Calendar myCalendar = Calendar.getInstance();
 
@@ -64,15 +60,22 @@ public class CreateDeal extends CustomActivity {
                 finish();
             }
         });
-
+        final Intent intent = new Intent(this, Dasboard.class);
         Button checkBtn = (Button) findViewById(R.id.dealCheckBtn);
         checkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (checkInput()) {
-                    String str = moneyInput.getText().toString().replaceAll("\\D+","");
-                    Log.d(TAG, "input: " + str + dateInput.getText().toString());
+                    String money = moneyInput.getText().toString().replaceAll("\\D+","");
+                    String currentTime = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
+                    String group = groupInput.getText().toString();
+                    String wallet = walletInput.getText().toString();
+                    String notes = noteInput.getText().toString();
+
+                    createNewDeal(money, group, currentTime, wallet, notes, dealKind);
+                    updateWallet(wallet, dealKind, Integer.parseInt(money));
                     finish();
+                    startActivity(intent);
                 }
                 else {
 
@@ -160,6 +163,7 @@ public class CreateDeal extends CustomActivity {
                 groupImg.setImageResource(data.getIntExtra("groupImg", 0));
                 groupImg.clearColorFilter();
                 groupInput.setText(value1);
+                dealKind = value2;
             }
         }
         else if (requestCode == 1) {
