@@ -45,7 +45,7 @@ public class Wallets extends RealmObject {
     private String name;
     private int amount;
     private int walletType;
-    private String dayCreated;
+    private Date dayCreated;
 
     public void setName(String name) {
         this.name = name;
@@ -57,10 +57,6 @@ public class Wallets extends RealmObject {
 
     public void setWalletType(int walletType) {
         this.walletType = walletType;
-    }
-
-    public void setDayCreated(String dayCreated) {
-        this.dayCreated = dayCreated;
     }
 
     public String getName() {
@@ -75,8 +71,12 @@ public class Wallets extends RealmObject {
         return walletType;
     }
 
-    public String getDayCreated() {
+    public Date getDayCreated() {
         return dayCreated;
+    }
+
+    public void setDayCreated(Date dayCreated) {
+        this.dayCreated = dayCreated;
     }
 }
 

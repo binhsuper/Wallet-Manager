@@ -15,7 +15,9 @@ import android.widget.TextView;
 import com.bootcamp.walletmanager.Datamodel.Wallets;
 import com.bootcamp.walletmanager.R;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 public class WalletListAdapter extends RecyclerView.Adapter<WalletListAdapter.WalletListViewHolder> {
@@ -39,16 +41,18 @@ public class WalletListAdapter extends RecyclerView.Adapter<WalletListAdapter.Wa
     }
 
     @Override
-    public void onBindViewHolder(@NonNull WalletListAdapter.WalletListViewHolder holder, final int postition) {
+    public void onBindViewHolder(@NonNull WalletListAdapter.WalletListViewHolder holder, final int position) {
         Random rnd = new Random();
         int color = Color.argb(255, rnd.nextInt(200), rnd.nextInt(200), rnd.nextInt(200));
         holder.background.setBackgroundColor(color);
 
-        holder.walletName.setText(mWallets.get(postition).getName());
-        holder.money.setText(mWallets.get(postition).getAmount() + ".00 đ");
-        holder.date.setText(mWallets.get(postition).getDayCreated());
+        holder.walletName.setText(mWallets.get(position).getName());
+        holder.money.setText(mWallets.get(position).getAmount() + ".00 đ");
 
-        int walletType = mWallets.get(postition).getWalletType();
+        String currentTime = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(mWallets.get(position).getDayCreated());
+        holder.date.setText(currentTime);
+
+        int walletType = mWallets.get(position).getWalletType();
         if (walletType == Wallets.WalletType.NORMAL.getValue()) {
             holder.type.setText("Ví thường");
             holder.typeImg.setImageResource(R.drawable.wallet_wallet_icon);
@@ -69,7 +73,7 @@ public class WalletListAdapter extends RecyclerView.Adapter<WalletListAdapter.Wa
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mWalletSelected.onWalletSelected(mWallets.get(postition));
+                mWalletSelected.onWalletSelected(mWallets.get(position));
             }
         });
     }

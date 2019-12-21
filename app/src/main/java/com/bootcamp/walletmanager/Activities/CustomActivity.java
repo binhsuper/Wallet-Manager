@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.media.MediaSync;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -18,7 +19,10 @@ import com.bootcamp.walletmanager.Datamodel.Records;
 import com.bootcamp.walletmanager.Datamodel.Wallets;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -102,7 +106,7 @@ public class CustomActivity extends AppCompatActivity {
         }
     }
 
-    public void createNewWallet(final String name, final int amount, final int walletType, final String dayCreated) {
+    public void createNewWallet(final String name, final int amount, final int walletType, final Date dayCreated) {
         realm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
@@ -140,7 +144,7 @@ public class CustomActivity extends AppCompatActivity {
     }
 
     // TODO: Create deal data functions.
-    public void createNewRecord(final String amount, final String group, final String date, final String fromWallet, final String notes, final String kind) {
+    public void createNewRecord(final String amount, final String group, final Date date, final String fromWallet, final String notes, final String kind) {
         realm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
@@ -156,7 +160,43 @@ public class CustomActivity extends AppCompatActivity {
         });
     }
 
-    // TODO: Create deal data functions.
+    // TODO: Create hitory records data functions.
+
+    private void getRecordInMonth(int value) {
+        for (int i = 0; i < LoggedAccount.getCurrentLogin().getUserRecords().size(); i++) {
+            Records record = LoggedAccount.getCurrentLogin().getUserRecords().get(i);
+            Date date = record.getDate();
+            String monthNumber  = (String) DateFormat.format("MM", date);
+            int month = Integer.parseInt(monthNumber);
+            if (month == value) {
+                Log.d("getallmonths", "getRecordInMonth: " + record.getAmount());
+            }
+        }
+    }
+
+    private ArrayList getRecordsMonth() {
+        ArrayList<Integer> months = new ArrayList<Integer>();
+
+        for (int i = 0; i < LoggedAccount.getCurrentLogin().getUserRecords().size(); i++) {
+            Records record = LoggedAccount.getCurrentLogin().getUserRecords().get(i);
+            Date date = record.getDate();
+            String monthNumber  = (String) DateFormat.format("MM", date);
+            int month = Integer.parseInt(monthNumber);
+            months.add(month);
+        }
+        HashSet<Integer> hashSet = new HashSet<Integer>();
+        hashSet.addAll(months);
+        months.clear();
+        months.addAll(hashSet);
+        Collections.sort(months, Collections.reverseOrder());
+        Log.d("getallmonths", "getRecordsMonth: " + months);
+//
+//        for (int i = 0; i < months.size(); i++) {
+//            getRecordInMonth(months.get(i));
+//            Log.d("getallmonths", " ");
+//        }
+        return months;
+    }
 
     public void hideKeyboard() {
         View view = this.getCurrentFocus();

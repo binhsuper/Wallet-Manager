@@ -2,12 +2,14 @@ package com.bootcamp.walletmanager.Datamodel;
 
 import android.widget.ImageView;
 
+import java.util.Date;
+
 import io.realm.RealmObject;
 
 public class Records extends RealmObject {
     String fromWallet;
     String type;
-    String date;
+    Date date;
     String amount;
     String notes;
     String kind;
@@ -28,10 +30,6 @@ public class Records extends RealmObject {
         this.type = type;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     public void setAmount(String amount) {
         this.amount = amount;
     }
@@ -48,15 +46,19 @@ public class Records extends RealmObject {
         return type;
     }
 
-    public String getDate() {
-        return date;
-    }
-
     public String getAmount() {
         return amount;
     }
 
     public String getNotes() {
         return notes;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

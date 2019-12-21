@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.bootcamp.walletmanager.R;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -59,7 +60,7 @@ public class CreateWallet extends CustomActivity {
                 if (userInput != null) {
                     //TODO: Create new wallet
 
-                    String currentTime = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
+                    Date currentTime = Calendar.getInstance().getTime();
                     createNewWallet(userInput[0], Integer.parseInt(userInput[1]), spinner.getSelectedItemPosition() + 1, currentTime);
                     finish();
                     startActivity(intent);

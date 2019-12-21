@@ -14,7 +14,9 @@ import android.widget.TextView;
 import com.bootcamp.walletmanager.Datamodel.Records;
 import com.bootcamp.walletmanager.R;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordViewHolder> {
     List<Records> mRecords;
@@ -37,7 +39,9 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
     public void onBindViewHolder(@NonNull RecordViewHolder holder, int position) {
         holder.walletName.setText(mRecords.get(position).getFromWallet());
         holder.recordType.setText(mRecords.get(position).getType());
-        holder.date.setText(mRecords.get(position).getDate());
+
+        String currentTime = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(mRecords.get(position).getDate());
+        holder.date.setText(currentTime);
 
         if (mRecords.get(position).getKind().equals("spending")) {
             holder.money.setText("- " +mRecords.get(position).getAmount() + " đ");

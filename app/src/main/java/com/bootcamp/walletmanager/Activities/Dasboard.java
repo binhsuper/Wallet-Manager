@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationSet;
@@ -22,8 +23,18 @@ import com.bootcamp.walletmanager.Adapter.RecordAdapter;
 import com.bootcamp.walletmanager.Adapter.WalletAdapter;
 import com.bootcamp.walletmanager.Application.LoggedAccount;
 import com.bootcamp.walletmanager.Datamodel.Account;
+import com.bootcamp.walletmanager.Datamodel.Records;
 import com.bootcamp.walletmanager.Datamodel.SideBar;
 import com.bootcamp.walletmanager.R;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -48,6 +59,7 @@ public class Dasboard extends CustomActivity implements SideBar.MenuItemSelected
 
         openLoginPage();
         configureActionBar();
+
     }
 
     // TODO: implement user login/register.
@@ -214,7 +226,8 @@ public class Dasboard extends CustomActivity implements SideBar.MenuItemSelected
 
     @Override
     public void onHistorySelected() {
-
+        startActivity(new Intent(this, RecordHistory.class));
+        sideBar.mDrawer.closeDrawer();
     }
 
     @Override

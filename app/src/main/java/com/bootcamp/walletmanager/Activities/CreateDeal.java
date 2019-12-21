@@ -67,12 +67,12 @@ public class CreateDeal extends CustomActivity {
             public void onClick(View v) {
                 if (checkInput()) {
                     String money = moneyInput.getText().toString().replaceAll("\\D+","");
-                    String currentTime = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
+                    Date dateCreated = myCalendar.getTime();
                     String group = groupInput.getText().toString();
                     String wallet = walletInput.getText().toString();
                     String notes = noteInput.getText().toString();
 
-                    createNewRecord(money, group, currentTime, wallet, notes, dealKind);
+                    createNewRecord(money, group, dateCreated, wallet, notes, dealKind);
                     updateWallet(wallet, dealKind, Integer.parseInt(money));
                     finish();
                     startActivity(intent);

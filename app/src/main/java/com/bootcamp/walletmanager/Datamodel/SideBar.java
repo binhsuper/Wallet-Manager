@@ -57,6 +57,14 @@ public class SideBar {
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        if (drawerItem.getIdentifier() == 1)
+                            mMenuItemSelected.onHistorySelected();
+                        if (drawerItem.getIdentifier() == 2)
+                            mMenuItemSelected.onChartSelected();
+                        if (drawerItem.getIdentifier() == 3)
+                            mMenuItemSelected.onSavingSelected();
+                        if (drawerItem.getIdentifier() == 4)
+                            mMenuItemSelected.onDebtSelected();
                         if (drawerItem.getIdentifier() == 5)
                             mMenuItemSelected.onLogoutSelected();
 
