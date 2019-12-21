@@ -60,34 +60,44 @@ public class CreateDeal extends CustomActivity {
                 finish();
             }
         });
-        final Intent intent = new Intent(this, Dasboard.class);
         Button checkBtn = (Button) findViewById(R.id.dealCheckBtn);
         checkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (checkInput()) {
-                    String money = moneyInput.getText().toString().replaceAll("\\D+","");
-                    Date dateCreated = myCalendar.getTime();
-                    String group = groupInput.getText().toString();
-                    String wallet = walletInput.getText().toString();
-                    String notes = noteInput.getText().toString();
-
-                    createNewRecord(money, group, dateCreated, wallet, notes, dealKind);
-                    updateWallet(wallet, dealKind, Integer.parseInt(money));
-                    finish();
-                    startActivity(intent);
+                    implementDealInput();
                 }
                 else {
-
+                    Toast toast = Toast.makeText(getApplicationContext(), "Bạn chưa nhập đủ thông tin", Toast.LENGTH_SHORT);
+                    toast.show();
                 }
             }
         });
     }
 
+    private void implementDealInput() {
+        final Intent intent = new Intent(this, Dasboard.class);
+        String money = moneyInput.getText().toString().replaceAll("\\D+","");
+        Date dateCreated;
+        String group = groupInput.getText().toString();
+        String wallet = walletInput.getText().toString();
+        String notes = noteInput.getText().toString();
+
+        if (dateInput.getText().toString().equals("Hôm nay")){
+            dateCreated = Calendar.getInstance().getTime();
+        }
+        else {
+            dateCreated = myCalendar.getTime();
+        }
+
+        createNewRecord(money, group, dateCreated, wallet, notes, dealKind);
+        updateWallet(wallet, dealKind, Integer.parseInt(money));
+        finish();
+        startActivity(intent);
+    };
+
     private boolean checkInput() {
         if (moneyInput.getText().length() == 0 || groupInput.length() == 0 || dateInput.length() == 0 || walletInput.length() == 0) {
-            Toast toast = Toast.makeText(this, "Bạn chưa nhập đủ thông tin", Toast.LENGTH_SHORT);
-            toast.show();
             return false;
         }
         else {

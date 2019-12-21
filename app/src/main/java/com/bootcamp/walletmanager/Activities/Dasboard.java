@@ -208,7 +208,7 @@ public class Dasboard extends CustomActivity implements SideBar.MenuItemSelected
         records.setHasFixedSize(true);
         LinearLayoutManager recordLayout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         records.setLayoutManager(recordLayout);
-        RecordAdapter recordAdapter = new RecordAdapter(this , LoggedAccount.getCurrentLogin().getUserRecords());
+        RecordAdapter recordAdapter = new RecordAdapter(this , getMonthlyRecords());
         records.setAdapter(recordAdapter);
     }
 

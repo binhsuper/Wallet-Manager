@@ -49,7 +49,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         }
         else {
             holder.money.setText("+ " +mRecords.get(position).getAmount() + " đ");
-            holder.money.setTextColor(Color.GREEN);
+            holder.money.setTextColor(Color.rgb(11,176,13));
         }
 
         switch (mRecords.get(position).getType()) {
@@ -88,6 +88,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
             }
         });
     }

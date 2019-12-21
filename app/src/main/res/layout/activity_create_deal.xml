@@ -121,6 +121,7 @@
             android:background="@drawable/edittext_layout"
             android:paddingLeft="@dimen/_10sdp"
             android:layout_marginHorizontal="@dimen/_15sdp"
+            android:text="Hôm nay"
             android:focusable="false"
             android:hint="Chọn ngày"
             />

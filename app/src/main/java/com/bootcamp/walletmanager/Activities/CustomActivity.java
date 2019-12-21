@@ -20,9 +20,12 @@ import com.bootcamp.walletmanager.Datamodel.Wallets;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -162,40 +165,22 @@ public class CustomActivity extends AppCompatActivity {
 
     // TODO: Create hitory records data functions.
 
-    private void getRecordInMonth(int value) {
+    public List<Records> getMonthlyRecords() {
+        List<Records> monthlyRecords = new ArrayList<>();
+        String currentMonth  = (String) DateFormat.format("MM", Calendar.getInstance().getTime());
         for (int i = 0; i < LoggedAccount.getCurrentLogin().getUserRecords().size(); i++) {
             Records record = LoggedAccount.getCurrentLogin().getUserRecords().get(i);
-            Date date = record.getDate();
-            String monthNumber  = (String) DateFormat.format("MM", date);
-            int month = Integer.parseInt(monthNumber);
-            if (month == value) {
-                Log.d("getallmonths", "getRecordInMonth: " + record.getAmount());
+            String recordMonth = (String) DateFormat.format("MM", record.getDate());
+            if (currentMonth.equals(recordMonth)) {
+                monthlyRecords.add(record);
             }
         }
-    }
-
-    private ArrayList getRecordsMonth() {
-        ArrayList<Integer> months = new ArrayList<Integer>();
-
-        for (int i = 0; i < LoggedAccount.getCurrentLogin().getUserRecords().size(); i++) {
-            Records record = LoggedAccount.getCurrentLogin().getUserRecords().get(i);
-            Date date = record.getDate();
-            String monthNumber  = (String) DateFormat.format("MM", date);
-            int month = Integer.parseInt(monthNumber);
-            months.add(month);
-        }
-        HashSet<Integer> hashSet = new HashSet<Integer>();
-        hashSet.addAll(months);
-        months.clear();
-        months.addAll(hashSet);
-        Collections.sort(months, Collections.reverseOrder());
-        Log.d("getallmonths", "getRecordsMonth: " + months);
-//
-//        for (int i = 0; i < months.size(); i++) {
-//            getRecordInMonth(months.get(i));
-//            Log.d("getallmonths", " ");
-//        }
-        return months;
+        Collections.sort(monthlyRecords, new Comparator<Records>(){
+            public int compare(Records o1, Records o2) {
+                return o2.getDate().compareTo(o1.getDate());
+            }
+        });
+        return monthlyRecords;
     }
 
     public void hideKeyboard() {

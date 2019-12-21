@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">#F2F4F7</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/text</item>
         <item name="windowActionBar">true</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="actionBarStyle">@style/myActionBar</item>
