@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:id="@+id/container"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -11,7 +12,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="wrap_content"
         android:background="@color/baseColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,6 +33,20 @@
             android:textSize="@dimen/_20sdp"
             android:text="Lịch sử"
             android:textColor="@color/text"
+            />
+
+        <Button
+            android:id="@+id/openPicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2019"
+            android:layout_marginRight="@dimen/_8sdp"
+            android:drawableRight="@drawable/ic_expand_icon"
+            android:textColor="@color/text"
+            android:textSize="@dimen/_15sdp"
+            android:background="@color/baseColor"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_gravity="right"
             />
 
     </android.support.v7.widget.Toolbar>

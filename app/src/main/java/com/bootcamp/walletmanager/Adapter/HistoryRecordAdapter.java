@@ -25,9 +25,11 @@ import java.util.List;
 public class HistoryRecordAdapter extends RecyclerView.Adapter<HistoryRecordAdapter.HistoryRecordViewHolder> {
 
     Context mContext;
+    int year;
 
-    public HistoryRecordAdapter(Context context) {
+    public HistoryRecordAdapter(Context context, int year) {
         mContext = context;
+        this.year = year;
     }
 
     @NonNull
@@ -85,8 +87,11 @@ public class HistoryRecordAdapter extends RecyclerView.Adapter<HistoryRecordAdap
             Records record = LoggedAccount.getCurrentLogin().getUserRecords().get(i);
             Date date = record.getDate();
             String monthNumber  = (String) DateFormat.format("MM", date);
-            int month = Integer.parseInt(monthNumber);
-            months.add(month);
+            int year  = Integer.parseInt((String) DateFormat.format("yyyy", date));
+            if (year == this.year) {
+                int month = Integer.parseInt(monthNumber);
+                months.add(month);
+            }
         }
         HashSet<Integer> hashSet = new HashSet<Integer>();
         hashSet.addAll(months);

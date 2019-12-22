@@ -1,20 +1,32 @@
 package com.bootcamp.walletmanager.Activities;
-
-import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
+import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
+
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.aigestudio.wheelpicker.WheelPicker;
 import com.bootcamp.walletmanager.Adapter.HistoryRecordAdapter;
+import com.bootcamp.walletmanager.CustomView.YearPickerDialog;
 import com.bootcamp.walletmanager.R;
 
 import java.util.Calendar;
+import java.util.Date;
 
 
-public class RecordHistory extends CustomActivity {
+public class RecordHistory extends CustomActivity implements YearPickerDialog.OnYearPickerListener {
+
+    YearPickerDialog yearPickerDialog;
+    Button yearPicker;
+    RecyclerView yearRecord;
+    HistoryRecordAdapter historyRecordAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,12 +34,42 @@ public class RecordHistory extends CustomActivity {
         setContentView(R.layout.activity_record_history);
 
         setUpToolBar();
+        setUpRecyclerView();
+        yearPicker();
 
-        RecyclerView yearRecord = findViewById(R.id.records_recycler_view);
+
+    }
+
+    private void setUpRecyclerView() {
+        yearRecord = findViewById(R.id.records_recycler_view);
         yearRecord.setHasFixedSize(true);
         LinearLayoutManager recordLayout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         yearRecord.setLayoutManager(recordLayout);
-        HistoryRecordAdapter historyRecordAdapter = new HistoryRecordAdapter(this);
+
+        Date currentDate = Calendar.getInstance().getTime();
+        int year  = Integer.parseInt((String) DateFormat.format("yyyy", currentDate));
+        historyRecordAdapter = new HistoryRecordAdapter(this, year);
+        yearRecord.setAdapter(historyRecordAdapter);
+    }
+
+
+    private void yearPicker() {
+        yearPicker = (Button) findViewById(R.id.openPicker);
+        yearPickerDialog = new YearPickerDialog(this, this);
+        yearPicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                yearPickerDialog.show();
+            }
+        });
+    }
+
+    @Override
+    public void onYearSelected(WheelPicker picker, Object data, int position) {
+        Log.d("yearSelected", "onYearSelected: " + data.toString());
+        yearPicker.setText(data.toString());
+        yearPickerDialog.hide();
+        historyRecordAdapter = new HistoryRecordAdapter(this, Integer.parseInt(data.toString()));
         yearRecord.setAdapter(historyRecordAdapter);
     }
 
