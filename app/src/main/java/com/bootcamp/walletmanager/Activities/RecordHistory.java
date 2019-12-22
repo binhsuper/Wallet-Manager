@@ -27,7 +27,8 @@ public class RecordHistory extends CustomActivity implements YearPickerDialog.On
     Button yearPicker;
     RecyclerView yearRecord;
     HistoryRecordAdapter historyRecordAdapter;
-
+    Date currentDate = Calendar.getInstance().getTime();
+    int year  = Integer.parseInt((String) DateFormat.format("yyyy", currentDate));
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +37,6 @@ public class RecordHistory extends CustomActivity implements YearPickerDialog.On
         setUpToolBar();
         setUpRecyclerView();
         yearPicker();
-
-
     }
 
     private void setUpRecyclerView() {
@@ -46,8 +45,7 @@ public class RecordHistory extends CustomActivity implements YearPickerDialog.On
         LinearLayoutManager recordLayout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         yearRecord.setLayoutManager(recordLayout);
 
-        Date currentDate = Calendar.getInstance().getTime();
-        int year  = Integer.parseInt((String) DateFormat.format("yyyy", currentDate));
+
         historyRecordAdapter = new HistoryRecordAdapter(this, year);
         yearRecord.setAdapter(historyRecordAdapter);
     }
@@ -55,6 +53,7 @@ public class RecordHistory extends CustomActivity implements YearPickerDialog.On
 
     private void yearPicker() {
         yearPicker = (Button) findViewById(R.id.openPicker);
+        yearPicker.setText(Integer.toString(year));
         yearPickerDialog = new YearPickerDialog(this, this);
         yearPicker.setOnClickListener(new View.OnClickListener() {
             @Override
