@@ -204,7 +204,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/text"
-            android:src="@drawable/wallet_icon"
+            android:src="@drawable/wallet_manager_logo"
             android:layout_marginLeft="@dimen/_10sdp"
             android:tint="@color/white"
             app:borderWidth="0dp"

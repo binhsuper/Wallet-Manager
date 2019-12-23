@@ -146,24 +146,16 @@ public class chart3 extends Fragment implements YearPickerDialog.OnYearPickerLis
         BarDataSet bardataset = new BarDataSet(entries, "Cells");
 
         ArrayList labels = new ArrayList<>();
-        labels.add("T1");
-        labels.add("T2");
-        labels.add("T3");
-        labels.add("T4");
-        labels.add("T5");
-        labels.add("T6");
-        labels.add("T7");
-        labels.add("T8");
-        labels.add("T9");
-        labels.add("T10");
-        labels.add("T11");
-        labels.add("T12");
+
+        for (int i = 1; i <= 12; i++) {
+            labels.add("T" + i);
+        }
 
         BarData data = new BarData(bardataset);
 
         barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(labels));
         barChart.animateY(1000);
-
+        barChart.getDescription().setEnabled(false);
         barChart.setFitBars(true);
         barChart.getXAxis().setGranularityEnabled(true);
         barChart.getXAxis().setGranularity(1.0f);

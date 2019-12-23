@@ -140,7 +140,7 @@
         <ImageView
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
-            android:background="@drawable/wallet_icon"
+            android:background="@drawable/wallet_manager_logo"
             android:backgroundTint="@color/text"
             />
 
