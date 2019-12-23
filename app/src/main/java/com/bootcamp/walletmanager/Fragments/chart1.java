@@ -117,8 +117,10 @@ public class chart1 extends Fragment {
         }
 
         PieDataSet pieDataSet = new PieDataSet(values, null);
+        pieDataSet.setSliceSpace(3f);
 
         PieData data = new PieData(pieDataSet);
+
         data.setValueFormatter(new PercentFormatter(chart));
         data.setValueTextSize(20f);
         data.setValueTextColor(Color.WHITE);
