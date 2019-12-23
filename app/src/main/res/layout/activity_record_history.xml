@@ -13,7 +13,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/baseColor"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -43,7 +43,7 @@
             android:drawableRight="@drawable/drop_down_icon"
             android:textColor="@color/text"
             android:textSize="@dimen/_15sdp"
-            android:background="@color/baseColor"
+            android:background="@color/white"
             style="?android:attr/borderlessButtonStyle"
             android:layout_gravity="right"
             />
@@ -54,6 +54,7 @@
         android:id="@+id/records_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/baseColor"
         android:overScrollMode="never">
 
     </android.support.v7.widget.RecyclerView>
