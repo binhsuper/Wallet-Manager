@@ -169,7 +169,6 @@ public class Dasboard extends CustomActivity implements SideBar.MenuItemSelected
 
     private void configureActionBar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitleTextColor(getResources().getColor(R.color.text));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
@@ -232,7 +231,8 @@ public class Dasboard extends CustomActivity implements SideBar.MenuItemSelected
 
     @Override
     public void onChartSelected() {
-
+        startActivity(new Intent(this, Chart.class));
+        sideBar.mDrawer.closeDrawer();
     }
 
     @Override
