@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.aigestudio.wheelpicker.WheelPicker;
 import com.bootcamp.walletmanager.Adapter.HistoryRecordAdapter;
+import com.bootcamp.walletmanager.Adapter.RecordAdapter;
 import com.bootcamp.walletmanager.CustomView.YearPickerDialog;
 import com.bootcamp.walletmanager.R;
 
@@ -21,7 +22,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 
-public class RecordHistory extends CustomActivity implements YearPickerDialog.OnYearPickerListener {
+public class RecordHistory extends CustomActivity implements YearPickerDialog.OnYearPickerListener, RecordAdapter.OnClickRecord {
 
     YearPickerDialog yearPickerDialog;
     Button yearPicker;
@@ -70,6 +71,11 @@ public class RecordHistory extends CustomActivity implements YearPickerDialog.On
         yearPickerDialog.hide();
         historyRecordAdapter = new HistoryRecordAdapter(this, Integer.parseInt(data.toString()));
         yearRecord.setAdapter(historyRecordAdapter);
+    }
+
+    @Override
+    public void onRecordSelected(String id) {
+        
     }
 
     private void setUpToolBar() {

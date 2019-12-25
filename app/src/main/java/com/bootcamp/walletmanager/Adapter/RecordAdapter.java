@@ -20,11 +20,11 @@ import java.util.Locale;
 
 public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordViewHolder> {
     List<Records> mRecords;
-    Context mContext;
+    OnClickRecord mOnClickRecord;
 
-    public RecordAdapter( Context context, List<Records> records) {
+    public RecordAdapter(List<Records> records, OnClickRecord onClickRecord) {
         mRecords = records;
-        mContext = context;
+        mOnClickRecord = onClickRecord;
     }
 
     @NonNull
@@ -36,7 +36,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecordViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecordViewHolder holder, final int position) {
         holder.walletName.setText(mRecords.get(position).getFromWallet());
         holder.recordType.setText(mRecords.get(position).getType());
 
@@ -88,9 +88,13 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                mOnClickRecord.onRecordSelected(mRecords.get(position).getRecordID());
             }
         });
+    }
+
+    public interface OnClickRecord {
+        void onRecordSelected(String id);
     }
 
     @Override

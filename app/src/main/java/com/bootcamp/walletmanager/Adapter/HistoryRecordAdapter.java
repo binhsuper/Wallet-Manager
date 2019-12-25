@@ -1,6 +1,7 @@
 package com.bootcamp.walletmanager.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bootcamp.walletmanager.Activities.CreateDeal;
 import com.bootcamp.walletmanager.Application.LoggedAccount;
 import com.bootcamp.walletmanager.Datamodel.Records;
 import com.bootcamp.walletmanager.R;
@@ -22,7 +24,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
-public class HistoryRecordAdapter extends RecyclerView.Adapter<HistoryRecordAdapter.HistoryRecordViewHolder> {
+public class HistoryRecordAdapter extends RecyclerView.Adapter<HistoryRecordAdapter.HistoryRecordViewHolder> implements RecordAdapter.OnClickRecord {
 
     Context mContext;
     int year;
@@ -56,8 +58,16 @@ public class HistoryRecordAdapter extends RecyclerView.Adapter<HistoryRecordAdap
             }
         });
 
-        RecordAdapter recordAdapter = new RecordAdapter(mContext , monthRecords);
+        RecordAdapter recordAdapter = new RecordAdapter(monthRecords, this);
         holder.mRecyclerView.setAdapter(recordAdapter);
+    }
+
+    @Override
+    public void onRecordSelected(String id) {
+        Intent intent = new Intent(mContext, CreateDeal.class);
+        intent.putExtra("ViewState", "VIEW");
+        intent.putExtra("RecordId", id);
+        mContext.startActivity(intent);
     }
 
     @Override

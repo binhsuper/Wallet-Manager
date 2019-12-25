@@ -14,7 +14,9 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.bootcamp.walletmanager.Application.LoggedAccount;
+import com.bootcamp.walletmanager.Application.WalletManagerApplication;
 import com.bootcamp.walletmanager.Datamodel.Account;
+import com.bootcamp.walletmanager.Datamodel.DealType;
 import com.bootcamp.walletmanager.Datamodel.Records;
 import com.bootcamp.walletmanager.Datamodel.Wallets;
 
@@ -40,7 +42,7 @@ public class CustomActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        realm = Realm.getDefaultInstance();
+        realm = Realm.getInstance(WalletManagerApplication.config);
     }
 
 
@@ -151,7 +153,7 @@ public class CustomActivity extends AppCompatActivity {
         realm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                Records record = realm.createObject(Records.class); // Create a new object
+                Records record = realm.createObject(Records.class, UUID.randomUUID().toString()); // Create a new object
                 record.setAmount(amount);
                 record.setType(group);
                 record.setDate(date);
@@ -162,7 +164,6 @@ public class CustomActivity extends AppCompatActivity {
             }
         });
     }
-
     // TODO: Create hitory records data functions.
 
     public List<Records> getMonthlyRecords() {
@@ -191,4 +192,9 @@ public class CustomActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        realm.close();
+    }
 }

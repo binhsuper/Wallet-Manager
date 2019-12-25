@@ -5,14 +5,26 @@ import android.widget.ImageView;
 import java.util.Date;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 public class Records extends RealmObject {
-    String fromWallet;
-    String type;
-    Date date;
-    String amount;
-    String notes;
-    String kind;
+    @PrimaryKey
+    private String recordID;
+
+    private String fromWallet;
+    private String type;
+    private Date date;
+    private String amount;
+    private String notes;
+    private String kind;
+
+    public String getRecordID() {
+        return recordID;
+    }
+
+    public void setRecordID(String recordID) {
+        this.recordID = recordID;
+    }
 
     public void setKind(String kind) {
         this.kind = kind;

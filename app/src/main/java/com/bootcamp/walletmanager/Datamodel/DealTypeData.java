@@ -14,6 +14,9 @@ public class DealTypeData {
         return mTypes;
     }
 
+    public DealTypeData() {
+    }
+
     public DealTypeData(int type) {
         switch (type) {
             case 0:

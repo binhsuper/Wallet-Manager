@@ -7,14 +7,27 @@ import com.bootcamp.walletmanager.Datamodel.Account;
 import java.util.UUID;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
+import io.realm.exceptions.RealmMigrationNeededException;
 
 public class WalletManagerApplication extends Application {
+
+    Realm realm;
+    public static RealmConfiguration config;
+
     @Override
     public void onCreate() {
         super.onCreate();
+
         Realm.init(this);
-        Realm realm = Realm.getDefaultInstance();
+        config = new RealmConfiguration.Builder()
+                .name("walletmanager.realm")
+                .schemaVersion(1)
+                .deleteRealmIfMigrationNeeded()
+                .build();
+        Realm realm = Realm.getInstance(config);
+
         realm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
@@ -28,5 +41,11 @@ public class WalletManagerApplication extends Application {
                 }
             }
         });
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        realm.close();
     }
 }
