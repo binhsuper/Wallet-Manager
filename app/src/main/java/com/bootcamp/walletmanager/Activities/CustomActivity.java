@@ -138,7 +138,7 @@ public class CustomActivity extends AppCompatActivity {
                         int amountAfter = wallet.getAmount() - amount;
                         wallet.setAmount(amountAfter);
                     }
-                    else {
+                    else if (type.equals("income")){
                         int amountAfter = wallet.getAmount() + amount;
                         wallet.setAmount(amountAfter);
                     }
@@ -182,7 +182,21 @@ public class CustomActivity extends AppCompatActivity {
                 }
             }
         });
+    }
 
+    public void deleteRecord(final String id) {
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                RealmResults<Records> records = realm.where(Records.class)
+                        .equalTo("recordID", id)
+                        .findAll();
+                for (int i = 0; i < records.size(); i++) {
+                    Records record = records.get(i);
+                    record.deleteFromRealm();
+                }
+            }
+        });
     }
 
     // TODO: Create hitory records data functions.

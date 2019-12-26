@@ -24,11 +24,15 @@ public class DealTypes extends CustomActivity implements DealTypeAdapter.GroupSe
     DealTypeData mDealTypeData;
     RecyclerView walletsView;
     DealTypeAdapter dealTypeAdapter;
+    String state;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deal_types);
+
+        state = getIntent().getStringExtra("STATE");
+
 
         configureToolbar();
         configureRecyclerView();
@@ -59,6 +63,17 @@ public class DealTypes extends CustomActivity implements DealTypeAdapter.GroupSe
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         final DealTypeAdapter.GroupSelected groupSelected = this;
+
+        if (state.equals("EDIT")) {
+            spinner.setEnabled(false);
+            String kind = getIntent().getStringExtra("DEAL_KIND");
+            if (kind.equals("spending")) {
+                spinner.setSelection(1);
+            }
+            else {
+                spinner.setSelection(0);
+            }
+        }
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

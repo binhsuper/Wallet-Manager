@@ -37,6 +37,7 @@ public class CreateDeal extends CustomActivity {
     final Calendar myCalendar = Calendar.getInstance();
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy", Locale.US);
 
+    Records selectedRecord;
     String viewMode = "";
 
     @Override
@@ -78,7 +79,7 @@ public class CreateDeal extends CustomActivity {
         });
         final Button checkBtn = (Button) findViewById(R.id.dealCheckBtn);
         Button editBtn = (Button) findViewById(R.id.edit);
-        Button deleteBtn = (Button) findViewById(R.id.delete);
+        final Button deleteBtn = (Button) findViewById(R.id.delete);
 
         //TODO: Open view or edit, delete record form.
         viewMode = getIntent().getStringExtra("ViewState");
@@ -124,6 +125,21 @@ public class CreateDeal extends CustomActivity {
                 moneyInput.setSelection(moneyInput.getText().length());
             }
         });
+
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (selectedRecord.getKind().equals("spending"))
+                    updateWallet(selectedRecord.getFromWallet(), "income", Integer.parseInt(selectedRecord.getAmount()));
+                else
+                    updateWallet(selectedRecord.getFromWallet(), "spending", Integer.parseInt(selectedRecord.getAmount()));
+
+                deleteRecord(selectedRecord.getRecordID());
+                Toast.makeText(getApplicationContext(), "Xoá giao dịch thành công", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(), Dasboard.class));
+                finish();
+            }
+        });
     }
 
     //TODO: Get the record details and display.
@@ -135,6 +151,7 @@ public class CreateDeal extends CustomActivity {
             if (record.getRecordID().equals(id)) {
                 Log.d(TAG, "showRecordDetails: " + id);
                 lockEdit();
+                selectedRecord = record;
                 moneyInput.setText("VND " + record.getAmount());
                 groupInput.setText(record.getType());
                 dateInput.setText(dateFormat.format(record.getDate()));
@@ -184,7 +201,6 @@ public class CreateDeal extends CustomActivity {
         String group = groupInput.getText().toString();
         String wallet = walletInput.getText().toString();
         String notes = noteInput.getText().toString();
-        String id = getIntent().getStringExtra("RecordId");
 
         if (dateInput.getText().toString().equals("Hôm nay")){
             dateCreated = Calendar.getInstance().getTime();
@@ -195,15 +211,11 @@ public class CreateDeal extends CustomActivity {
 
         //TODO: Input when user edit record
         if (viewMode.equals("VIEW")) {
-            for (int i = 0; i < LoggedAccount.getCurrentLogin().getUserRecords().size(); i++) {
-                Records record = LoggedAccount.getCurrentLogin().getUserRecords().get(i);
-                if (record.getRecordID().equals(id)) {
-                    int diffAmount = Integer.parseInt(money) - Integer.parseInt(record.getAmount());
-                    Log.d(TAG, "implementDealInput: " + record.getAmount() + " " + Integer.parseInt(money));
-                    updateWallet(wallet, dealKind, diffAmount);
-                }
-            }
-            updateRecord(id, money, group, dateCreated, notes, dealKind);
+            int diffAmount = Integer.parseInt(money) - Integer.parseInt(selectedRecord.getAmount());
+            Log.d(TAG, "implementDealInput: " + selectedRecord.getAmount() + " " + Integer.parseInt(money));
+            updateWallet(wallet, dealKind, diffAmount);
+
+            updateRecord(selectedRecord.getRecordID(), money, group, dateCreated, notes, dealKind);
 
             Toast.makeText(getApplicationContext(), "Sửa giao dịch thành công", Toast.LENGTH_SHORT).show();
         }
@@ -229,7 +241,6 @@ public class CreateDeal extends CustomActivity {
         moneyInput.setEnabled(true);
         groupInput.setEnabled(true);
         dateInput.setEnabled(true);
-        walletInput.setEnabled(true);
         noteInput.setEnabled(true);
     }
 
@@ -269,6 +280,13 @@ public class CreateDeal extends CustomActivity {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: " + "group selected");
+                if (viewMode.equals("VIEW")) {
+                    dealType.putExtra("STATE", "EDIT");
+                    dealType.putExtra("DEAL_KIND", selectedRecord.getKind());
+                }
+                else {
+                    dealType.putExtra("STATE", "CREATE");
+                }
                 startActivityForResult(dealType, 0);
             }
         });
