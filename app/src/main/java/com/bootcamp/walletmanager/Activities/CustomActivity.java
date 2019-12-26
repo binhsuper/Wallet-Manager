@@ -164,6 +164,27 @@ public class CustomActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void updateRecord(final String id, final String amount, final String group, final Date date, final String notes, final String kind) {
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                RealmResults<Records> records = realm.where(Records.class)
+                        .equalTo("recordID", id)
+                        .findAll();
+                for (int i = 0; i < records.size(); i++) {
+                    Records record = records.get(i);
+                    record.setAmount(amount);
+                    record.setDate(date);
+                    record.setKind(kind);
+                    record.setType(group);
+                    record.setNotes(notes);
+                }
+            }
+        });
+
+    }
+
     // TODO: Create hitory records data functions.
 
     public List<Records> getMonthlyRecords() {

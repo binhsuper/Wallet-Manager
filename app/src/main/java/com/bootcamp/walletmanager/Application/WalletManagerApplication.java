@@ -35,7 +35,7 @@ public class WalletManagerApplication extends Application {
                 if (accounts.size() == 0) {
                     Account account = realm.createObject(Account.class, UUID.randomUUID().toString()); // Create a new object
                     account.setName("admin");
-                    account.setEmail("hoangthebinh259@gmail.com");
+                    account.setEmail("admin@gmail.com");
                     account.setPassword("123456");
                     account.setLogged(false);
                 }

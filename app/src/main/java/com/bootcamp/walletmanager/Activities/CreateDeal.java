@@ -26,6 +26,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import io.realm.RealmList;
+
 public class CreateDeal extends CustomActivity {
     private String TAG = "DealInput";
     private EditText moneyInput, groupInput, dateInput, walletInput, noteInput;
@@ -50,6 +52,8 @@ public class CreateDeal extends CustomActivity {
         title = (TextView) findViewById(R.id.title);
         configureToolbar();
 
+
+        //TODO: Hide keyboard
         ConstraintLayout rootLayout = (ConstraintLayout) findViewById(R.id.createDealLayout);
         rootLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,24 +65,29 @@ public class CreateDeal extends CustomActivity {
 
     }
 
+    //TODO: Set up toolbar buttons, title.
+
     private void configureToolbar() {
         Button closeBtn = (Button) findViewById(R.id.dealCloseBtn);
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
+                startActivity(new Intent(getApplicationContext(), Dasboard.class));
             }
         });
         final Button checkBtn = (Button) findViewById(R.id.dealCheckBtn);
         Button editBtn = (Button) findViewById(R.id.edit);
         Button deleteBtn = (Button) findViewById(R.id.delete);
 
+        //TODO: Open view or edit, delete record form.
         viewMode = getIntent().getStringExtra("ViewState");
         if (viewMode.equals("VIEW")) {
             checkBtn.setVisibility(View.GONE);
             title.setText("Chi tiết giao dịch");
             showRecordDetails();
         }
+        //TODO: Open create record form.
         else {
             editBtn.setVisibility(View.GONE);
             deleteBtn.setVisibility(View.GONE);
@@ -89,6 +98,7 @@ public class CreateDeal extends CustomActivity {
             public void onClick(View v) {
                 if (viewMode.equals("VIEW")) {
                     lockEdit();
+                    implementDealInput();
                     v.setVisibility(View.GONE);
                 }
                 else {
@@ -116,6 +126,8 @@ public class CreateDeal extends CustomActivity {
         });
     }
 
+    //TODO: Get the record details and display.
+
     private void showRecordDetails() {
         String id = getIntent().getStringExtra("RecordId");
         for (int i = 0; i < LoggedAccount.getCurrentLogin().getUserRecords().size(); i++) {
@@ -128,6 +140,7 @@ public class CreateDeal extends CustomActivity {
                 dateInput.setText(dateFormat.format(record.getDate()));
                 walletInput.setText(record.getFromWallet());
                 noteInput.setText(record.getNotes());
+                dealKind = record.getKind();
                 switch (record.getType()) {
                     case "Quà tặng" :
                         groupImg.setImageResource(R.drawable.type_gift);
@@ -171,6 +184,7 @@ public class CreateDeal extends CustomActivity {
         String group = groupInput.getText().toString();
         String wallet = walletInput.getText().toString();
         String notes = noteInput.getText().toString();
+        String id = getIntent().getStringExtra("RecordId");
 
         if (dateInput.getText().toString().equals("Hôm nay")){
             dateCreated = Calendar.getInstance().getTime();
@@ -179,10 +193,28 @@ public class CreateDeal extends CustomActivity {
             dateCreated = myCalendar.getTime();
         }
 
-        createNewRecord(money, group, dateCreated, wallet, notes, dealKind);
-        updateWallet(wallet, dealKind, Integer.parseInt(money));
-        finish();
-        startActivity(intent);
+        //TODO: Input when user edit record
+        if (viewMode.equals("VIEW")) {
+            for (int i = 0; i < LoggedAccount.getCurrentLogin().getUserRecords().size(); i++) {
+                Records record = LoggedAccount.getCurrentLogin().getUserRecords().get(i);
+                if (record.getRecordID().equals(id)) {
+                    int diffAmount = Integer.parseInt(money) - Integer.parseInt(record.getAmount());
+                    Log.d(TAG, "implementDealInput: " + record.getAmount() + " " + Integer.parseInt(money));
+                    updateWallet(wallet, dealKind, diffAmount);
+                }
+            }
+            updateRecord(id, money, group, dateCreated, notes, dealKind);
+
+            Toast.makeText(getApplicationContext(), "Sửa giao dịch thành công", Toast.LENGTH_SHORT).show();
+        }
+
+        //TODO: Input when user create record
+        else {
+            createNewRecord(money, group, dateCreated, wallet, notes, dealKind);
+            updateWallet(wallet, dealKind, Integer.parseInt(money));
+            finish();
+            startActivity(intent);
+        }
     }
 
     private void lockEdit() {
