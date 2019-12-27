@@ -165,7 +165,27 @@ public class chart2 extends Fragment {
         data.setValueTextColor(Color.BLACK);
         chart.setData(data);
 
-        pieDataSet.setColors(ColorTemplate.PASTEL_COLORS);
+        ArrayList<Integer> colors = new ArrayList<>();
+
+        for (int c : ColorTemplate.VORDIPLOM_COLORS)
+            colors.add(c);
+
+        for (int c : ColorTemplate.JOYFUL_COLORS)
+            colors.add(c);
+
+        for (int c : ColorTemplate.COLORFUL_COLORS)
+            colors.add(c);
+
+        for (int c : ColorTemplate.LIBERTY_COLORS)
+            colors.add(c);
+
+        for (int c : ColorTemplate.PASTEL_COLORS)
+            colors.add(c);
+
+        colors.add(ColorTemplate.getHoloBlue());
+
+        pieDataSet.setColors(colors);
+
         PieData pieData = new PieData(pieDataSet);
         return pieData;
     }

@@ -15,6 +15,13 @@
         <item>KHOẢN CHI</item>
     </string-array>
 
+    <string-array name="money">
+        <item>Nghìn VND</item>
+        <item>Trăm nghìn VND</item>
+        <item>Triệu VND</item>
+        <item>Tỉ VND</item>
+    </string-array>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

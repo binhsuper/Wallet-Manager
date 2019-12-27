@@ -1,6 +1,7 @@
 package com.bootcamp.walletmanager.Activities;
 
 
+import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.RotateAnimation;
@@ -66,9 +68,21 @@ public class Dasboard extends CustomActivity implements SideBar.MenuItemSelected
                 configureActionBar();
                 configureRecyclerViews();
                 countBalance();
-                configureFloatingBtn();
             }
         }
+    }
+    private void setMargins (View view, int left, int top, int right, int bottom) {
+        if (view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+            p.setMargins(left, top, right, bottom);
+            view.requestLayout();
+        }
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        configureFloatingBtn();
     }
 
     private void configureFloatingBtn() {
@@ -77,9 +91,12 @@ public class Dasboard extends CustomActivity implements SideBar.MenuItemSelected
         fab2 = (LinearLayout) findViewById(R.id.fab2);
         addWallet = (TextView) findViewById(R.id.addWalletText);
         addDeal = (TextView) findViewById(R.id.addDealText);
-
         FloatingActionButton addDealBtn = (FloatingActionButton) findViewById(R.id.addDealBtn),
         addWalletBtn = (FloatingActionButton) findViewById(R.id.addWalletBtn);
+
+        int marginRight = fab.getMeasuredWidth() / 8;
+        setMargins(fab1, 0, 0, marginRight,0);
+        setMargins(fab2, 0, 0, marginRight,0);
 
         final Intent dealIntent = new Intent(this, CreateDeal.class);
 
@@ -182,7 +199,21 @@ public class Dasboard extends CustomActivity implements SideBar.MenuItemSelected
         for (int i = 0; i < LoggedAccount.getCurrentLogin().getUserWallets().size(); i++) {
             value += LoggedAccount.getCurrentLogin().getUserWallets().get(i).getAmount();
         }
-        balance.setText(Integer.toString(value) + ".00 đ");
+        animateTextView(0, value, balance);
+
+    }
+
+    public void animateTextView(int initialValue, int finalValue, final TextView textview) {
+        ValueAnimator valueAnimator = ValueAnimator.ofInt(initialValue, finalValue);
+        valueAnimator.setDuration(1000);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                textview.setText(valueAnimator.getAnimatedValue().toString() + ".00 đ");
+            }
+        });
+        valueAnimator.start();
+
     }
 
     private void configureRecyclerViews() {

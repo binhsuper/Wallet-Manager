@@ -20,10 +20,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textSize="@dimen/_20sdp"
             android:text="Trang chính"
             android:textColor="@color/text"
-            />
+            android:textSize="@dimen/_20sdp"
+            tools:layout_editor_absoluteX="137dp"
+            tools:layout_editor_absoluteY="10dp" />
 
         <Button
             android:id="@+id/notificationBtn"
@@ -87,7 +88,7 @@
                 android:gravity="center"
                 android:orientation="vertical"
                 android:padding="@dimen/_5sdp">
-
+s
                 <TextView
                     android:id="@+id/accountBalance"
                     android:layout_width="wrap_content"
@@ -145,7 +146,6 @@
         android:id="@+id/fab2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/_6sdp"
         app:layout_constraintBottom_toBottomOf="@+id/fab"
         app:layout_constraintEnd_toEndOf="@+id/fab"
         app:layout_constraintTop_toTopOf="@+id/fab">
@@ -182,7 +182,6 @@
         android:id="@+id/fab1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/_6sdp"
         app:layout_constraintBottom_toBottomOf="@+id/fab"
         app:layout_constraintEnd_toEndOf="@+id/fab"
         app:layout_constraintTop_toTopOf="@+id/fab">

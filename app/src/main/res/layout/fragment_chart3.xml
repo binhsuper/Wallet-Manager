@@ -28,7 +28,7 @@
             android:text="- Năm :"
             android:layout_gravity="center"
             android:textColor="@color/text"
-            android:textSize="@dimen/_20sdp"/>
+            android:textSize="@dimen/_16sdp"/>
 
         <Button
             android:id="@+id/openPicker"
@@ -44,18 +44,63 @@
             />
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Đơn vị: Trăm nghìn VND"
-        android:layout_marginLeft="@dimen/_6sdp"
-        android:layout_marginBottom="@dimen/_6sdp"
-        android:textSize="@dimen/_12sdp"
-        android:textStyle="italic"/>
+        android:layout_margin="@dimen/_6sdp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đơn vị:"
+            android:textSize="@dimen/_14sdp"
+            android:textColor="@color/black"
+            android:textStyle="italic"/>
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_6sdp">
+
+        <ImageView
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:background="#ff0000"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="@dimen/_14sdp"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:text="Khoản chi"/>
+
+        <ImageView
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_30sdp"
+            android:background="#18fa07"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:textSize="@dimen/_14sdp"
+            android:text="Khoản thu"/>
+
+    </LinearLayout>
 
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/chart3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+
 
 </LinearLayout>
