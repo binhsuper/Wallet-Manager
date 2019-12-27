@@ -30,7 +30,7 @@ import com.bootcamp.walletmanager.R;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class Dasboard extends CustomActivity implements SideBar.MenuItemSelected, RecordAdapter.OnClickRecord {
+public class Dasboard extends CustomActivity implements SideBar.MenuItemSelected, RecordAdapter.OnClickRecord, WalletAdapter.OnWalletSelected {
 
     public int LOGIN_SUCCESSFULLY = 0;
 
@@ -221,7 +221,7 @@ public class Dasboard extends CustomActivity implements SideBar.MenuItemSelected
         walletsView.setHasFixedSize(true);
         LinearLayoutManager walletLayout = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         walletsView.setLayoutManager(walletLayout);
-        WalletAdapter walletAdapter = new WalletAdapter(this , LoggedAccount.getCurrentLogin().getUserWallets());
+        WalletAdapter walletAdapter = new WalletAdapter(this , LoggedAccount.getCurrentLogin().getUserWallets(), this);
         walletsView.setAdapter(walletAdapter);
 
         RecyclerView records = findViewById(R.id.records);
@@ -285,12 +285,18 @@ public class Dasboard extends CustomActivity implements SideBar.MenuItemSelected
 
     //TODO: Monthly records onclick functions
 
-
     @Override
     public void onRecordSelected(String id) {
         Intent intent = new Intent(this, CreateDeal.class);
         intent.putExtra("ViewState", "VIEW");
         intent.putExtra("RecordId", id);
         startActivity(intent);
+    }
+
+    //TODO: Wallet onclick functions
+
+    @Override
+    public void onWalletSelected() {
+
     }
 }

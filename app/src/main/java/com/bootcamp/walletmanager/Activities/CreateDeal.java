@@ -1,7 +1,9 @@
 package com.bootcamp.walletmanager.Activities;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -85,7 +87,7 @@ public class CreateDeal extends CustomActivity {
         viewMode = getIntent().getStringExtra("ViewState");
         if (viewMode.equals("VIEW")) {
             checkBtn.setVisibility(View.GONE);
-            title.setText("Chi tiết giao dịch");
+            title.setText("");
             showRecordDetails();
         }
         //TODO: Open create record form.
@@ -126,18 +128,34 @@ public class CreateDeal extends CustomActivity {
             }
         });
 
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (selectedRecord.getKind().equals("spending"))
-                    updateWallet(selectedRecord.getFromWallet(), "income", Integer.parseInt(selectedRecord.getAmount()));
-                else
-                    updateWallet(selectedRecord.getFromWallet(), "spending", Integer.parseInt(selectedRecord.getAmount()));
+                builder.setMessage("Bạn có muốn xoá giao dịch này!")
+                        .setCancelable(false)
+                        .setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                if (selectedRecord.getKind().equals("spending"))
+                                    updateWallet(selectedRecord.getFromWallet(), "income", Integer.parseInt(selectedRecord.getAmount()));
+                                else
+                                    updateWallet(selectedRecord.getFromWallet(), "spending", Integer.parseInt(selectedRecord.getAmount()));
 
-                deleteRecord(selectedRecord.getRecordID());
-                Toast.makeText(getApplicationContext(), "Xoá giao dịch thành công", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getApplicationContext(), Dasboard.class));
-                finish();
+                                deleteRecord(selectedRecord.getRecordID());
+                                Toast.makeText(getApplicationContext(), "Xoá giao dịch thành công", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                                startActivity(new Intent(getApplicationContext(), Dasboard.class));
+                                finish();
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
             }
         });
     }

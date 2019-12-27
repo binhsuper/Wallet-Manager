@@ -24,6 +24,7 @@
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
             android:layout_gravity="left"
+            android:backgroundTint="@color/text"
             android:background="@drawable/toolbar_back" />
 
         <TextView
@@ -40,6 +41,7 @@
             android:layout_height="@dimen/_20sdp"
             android:layout_marginRight="@dimen/_15sdp"
             android:layout_gravity="right"
+            android:backgroundTint="@color/text"
             android:background="@drawable/toolbar_check"
             />
     </Toolbar>

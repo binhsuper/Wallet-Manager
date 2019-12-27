@@ -21,11 +21,12 @@ import java.util.Random;
 public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.WalletViewHolder> {
     List<Wallets> mWallets;
     Context mContext;
+    OnWalletSelected mWalletSelected;
 
-
-    public WalletAdapter(Context context, List<Wallets> wallets) {
+    public WalletAdapter(Context context, List<Wallets> wallets, OnWalletSelected walletSelected) {
         mWallets = wallets;
         mContext = context;
+        mWalletSelected = walletSelected;
     }
 
     @NonNull
@@ -65,8 +66,13 @@ public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.WalletView
                     toast = Toast.makeText(mContext, "saving account", Toast.LENGTH_SHORT);
                     toast.show();
                 }
+                mWalletSelected.onWalletSelected();
             }
         });
+    }
+
+    public interface OnWalletSelected {
+        void onWalletSelected();
     }
 
     @Override
