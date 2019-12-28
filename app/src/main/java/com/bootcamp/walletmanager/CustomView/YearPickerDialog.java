@@ -82,4 +82,3 @@ public class YearPickerDialog {
         return mYearPicker.isShowing();
     }
 }
-

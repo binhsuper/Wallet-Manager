@@ -75,7 +75,7 @@ public class RecordHistory extends CustomActivity implements YearPickerDialog.On
 
     @Override
     public void onRecordSelected(String id) {
-        
+
     }
 
     private void setUpToolBar() {

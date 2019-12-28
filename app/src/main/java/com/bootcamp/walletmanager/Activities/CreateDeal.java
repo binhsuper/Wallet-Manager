@@ -2,11 +2,12 @@ package com.bootcamp.walletmanager.Activities;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -16,10 +17,12 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bootcamp.walletmanager.Application.LoggedAccount;
+import com.bootcamp.walletmanager.CustomView.LayoutCaptureDialog;
 import com.bootcamp.walletmanager.Datamodel.Records;
 import com.bootcamp.walletmanager.R;
 
@@ -27,8 +30,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-
-import io.realm.RealmList;
 
 public class CreateDeal extends CustomActivity {
     private String TAG = "DealInput";
@@ -40,6 +41,7 @@ public class CreateDeal extends CustomActivity {
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy", Locale.US);
 
     Records selectedRecord;
+    Date currentTime;
     String viewMode = "";
 
     @Override
@@ -57,7 +59,7 @@ public class CreateDeal extends CustomActivity {
 
 
         //TODO: Hide keyboard
-        ConstraintLayout rootLayout = (ConstraintLayout) findViewById(R.id.createDealLayout);
+        LinearLayout rootLayout = (LinearLayout) findViewById(R.id.createDealLayout);
         rootLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,6 +84,7 @@ public class CreateDeal extends CustomActivity {
         final Button checkBtn = (Button) findViewById(R.id.dealCheckBtn);
         Button editBtn = (Button) findViewById(R.id.edit);
         final Button deleteBtn = (Button) findViewById(R.id.delete);
+        Button shareBtn = (Button) findViewById(R.id.share);
 
         //TODO: Open view or edit, delete record form.
         viewMode = getIntent().getStringExtra("ViewState");
@@ -94,6 +97,7 @@ public class CreateDeal extends CustomActivity {
         else {
             editBtn.setVisibility(View.GONE);
             deleteBtn.setVisibility(View.GONE);
+            shareBtn.setVisibility(View.GONE);
         }
 
         checkBtn.setOnClickListener(new View.OnClickListener() {
@@ -158,6 +162,29 @@ public class CreateDeal extends CustomActivity {
                 alert.show();
             }
         });
+
+        shareBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                captureLayout();
+            }
+        });
+    }
+
+    private void captureLayout() {
+        final LinearLayout shareLayout = (LinearLayout) findViewById(R.id.shareLayout);
+        final ProgressDialog pd = new ProgressDialog(this);
+        pd.setMessage("Chia sẻ giao dịch");
+        pd.show();
+        Handler handler = new Handler();
+        final LayoutCaptureDialog dialog = new LayoutCaptureDialog(this, getBitmapFromView(shareLayout));
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog.show();
+                pd.hide();
+            }
+        }, 1000);
     }
 
     //TODO: Get the record details and display.
@@ -176,6 +203,7 @@ public class CreateDeal extends CustomActivity {
                 walletInput.setText(record.getFromWallet());
                 noteInput.setText(record.getNotes());
                 dealKind = record.getKind();
+                myCalendar.setTime(record.getDate());
                 switch (record.getType()) {
                     case "Quà tặng" :
                         groupImg.setImageResource(R.drawable.type_gift);
@@ -232,9 +260,7 @@ public class CreateDeal extends CustomActivity {
             int diffAmount = Integer.parseInt(money) - Integer.parseInt(selectedRecord.getAmount());
             Log.d(TAG, "implementDealInput: " + selectedRecord.getAmount() + " " + Integer.parseInt(money));
             updateWallet(wallet, dealKind, diffAmount);
-
             updateRecord(selectedRecord.getRecordID(), money, group, dateCreated, notes, dealKind);
-
             Toast.makeText(getApplicationContext(), "Sửa giao dịch thành công", Toast.LENGTH_SHORT).show();
         }
 

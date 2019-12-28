@@ -247,13 +247,11 @@ public class Dasboard extends CustomActivity implements SideBar.MenuItemSelected
     @Override
     public void onHistorySelected() {
         startActivity(new Intent(this, RecordHistory.class));
-        sideBar.mDrawer.closeDrawer();
     }
 
     @Override
     public void onChartSelected() {
         startActivity(new Intent(this, Chart.class));
-        sideBar.mDrawer.closeDrawer();
     }
 
     @Override
@@ -269,8 +267,6 @@ public class Dasboard extends CustomActivity implements SideBar.MenuItemSelected
     @Override
     public void onLogoutSelected() {
         logOff();
-        openLoginPage();
-        sideBar.mDrawer.closeDrawer();
     }
 
     public void logOff() {
@@ -281,6 +277,8 @@ public class Dasboard extends CustomActivity implements SideBar.MenuItemSelected
                 persons.setBoolean("logged", false);
             }
         });
+        openLoginPage();
+        sideBar.mDrawer.closeDrawer();
     }
 
     //TODO: Monthly records onclick functions
