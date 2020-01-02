@@ -49,8 +49,10 @@ public class WalletListAdapter extends RecyclerView.Adapter<WalletListAdapter.Wa
         holder.walletName.setText(mWallets.get(position).getName());
         holder.money.setText(mWallets.get(position).getAmount() + ".00 đ");
 
-        String currentTime = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(mWallets.get(position).getDayCreated());
-        holder.date.setText(currentTime);
+        if (mWallets.get(position).getDayCreated() != null) {
+            String currentTime = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(mWallets.get(position).getDayCreated());
+            holder.date.setText(currentTime);
+        }
 
         int walletType = mWallets.get(position).getWalletType();
         if (walletType == Wallets.WalletType.NORMAL.getValue()) {
@@ -68,6 +70,10 @@ public class WalletListAdapter extends RecyclerView.Adapter<WalletListAdapter.Wa
         else if (walletType == Wallets.WalletType.SAVINGS.getValue()) {
             holder.type.setText("Ví tiết kiệm");
             holder.typeImg.setImageResource(R.drawable.wallet_saving);
+        }
+        else if (walletType == Wallets.WalletType.ALL.getValue()) {
+            holder.type.setText("");
+            holder.typeImg.setImageResource(R.drawable.global_icon);
         }
 
         holder.cv.setOnClickListener(new View.OnClickListener() {

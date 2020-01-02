@@ -18,7 +18,8 @@ public class Wallets extends RealmObject {
         NORMAL(1),
         BANK_ACCOUNT(2),
         CREDIT_CARD(3),
-        SAVINGS(4);
+        SAVINGS(4),
+        ALL(5);
 
         private int value;
         private static Map map = new HashMap<>();

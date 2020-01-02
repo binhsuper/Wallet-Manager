@@ -255,8 +255,8 @@ public class Dasboard extends CustomActivity implements SideBar.MenuItemSelected
     }
 
     @Override
-    public void onSavingSelected() {
-
+    public void onSearchSelected() {
+        startActivity(new Intent(this, Search.class));
     }
 
     @Override

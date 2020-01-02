@@ -348,6 +348,7 @@ public class CreateDeal extends CustomActivity {
         walletInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                walletPick.putExtra("STATE", "PICK");
                 startActivityForResult(walletPick, 1);
             }
         });

@@ -13,13 +13,22 @@ import com.bootcamp.walletmanager.Application.LoggedAccount;
 import com.bootcamp.walletmanager.Datamodel.Wallets;
 import com.bootcamp.walletmanager.R;
 
-public class WalletList extends AppCompatActivity implements WalletListAdapter.WalletSelected {
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+public class WalletList extends CustomActivity implements WalletListAdapter.WalletSelected {
+
+    String STATE = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet_list);
         configureToolbar();
+
+
         configureRecyclerView();
 
     }
@@ -40,8 +49,41 @@ public class WalletList extends AppCompatActivity implements WalletListAdapter.W
         walletsView.setHasFixedSize(true);
         LinearLayoutManager walletLayout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         walletsView.setLayoutManager(walletLayout);
-        WalletListAdapter walletListAdapter = new WalletListAdapter(this , LoggedAccount.getCurrentLogin().getUserWallets(), this);
-        walletsView.setAdapter(walletListAdapter);
+
+        STATE = getIntent().getStringExtra("STATE");
+        if (STATE.equals("SEARCH")) {
+            ArrayList<Wallets> dataSource = new ArrayList<>();
+            dataSource.add(createGlobalWallet());
+            for (int i = 0; i < LoggedAccount.getCurrentLogin().getUserWallets().size(); i++) {
+                Wallets wallet = LoggedAccount.getCurrentLogin().getUserWallets().get(i);
+                dataSource.add(wallet);
+            }
+
+            WalletListAdapter walletListAdapter = new WalletListAdapter(this , dataSource, this);
+            walletsView.setAdapter(walletListAdapter);
+        }
+        else {
+            WalletListAdapter walletListAdapter = new WalletListAdapter(this , LoggedAccount.getCurrentLogin().getUserWallets(), this);
+            walletsView.setAdapter(walletListAdapter);
+        }
+    }
+
+    private Wallets createGlobalWallet() {
+
+        Wallets allWallets = new Wallets();
+        allWallets.setName("Tất cả các ví");
+        allWallets.setWalletType(5);
+        Date dateCreated = Calendar.getInstance().getTime();
+        allWallets.setDayCreated(dateCreated);
+
+        //TODO: count total wallets balance
+        int value = 0;
+        for (int i = 0; i < LoggedAccount.getCurrentLogin().getUserWallets().size(); i++) {
+            value += LoggedAccount.getCurrentLogin().getUserWallets().get(i).getAmount();
+        }
+        allWallets.setAmount(value);
+
+        return allWallets;
     }
 
     @Override

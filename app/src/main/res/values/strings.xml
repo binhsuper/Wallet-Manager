@@ -22,6 +22,20 @@
         <item>Tỉ VND</item>
     </string-array>
 
+    <string-array name="amountRange">
+        <item>Tất Cả</item>
+        <item>Nhỏ hơn</item>
+        <item>Lớn hơn</item>
+        <item>Bằng</item>
+        <item>Trong khoảng</item>
+    </string-array>
+
+    <string-array name="recordKind">
+        <item>Tất cả</item>
+        <item>Khoản thu</item>
+        <item>Khoản chi</item>
+    </string-array>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

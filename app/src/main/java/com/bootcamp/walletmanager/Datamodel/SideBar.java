@@ -25,7 +25,7 @@ public class SideBar {
         final IProfile profile = new ProfileDrawerItem().withName(name).withEmail(email).withIcon(R.drawable.profile_img);
         PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName("Lịch sử").withIcon(R.drawable.drawer_history);
         PrimaryDrawerItem item2 = new PrimaryDrawerItem().withIdentifier(2).withName("Thống kê").withIcon(R.drawable.drawer_chart);
-        PrimaryDrawerItem item3 = new PrimaryDrawerItem().withIdentifier(3).withName("Tiết kiệm").withIcon(R.drawable.drawer_safe);
+        PrimaryDrawerItem item3 = new PrimaryDrawerItem().withIdentifier(3).withName("Tìm kiếm").withIcon(R.drawable.search_icon);
         PrimaryDrawerItem item4 = new PrimaryDrawerItem().withIdentifier(4).withName("Sổ nợ").withIcon(R.drawable.drawer_debt);
         PrimaryDrawerItem item5 = new PrimaryDrawerItem().withIdentifier(5).withName("Đăng xuất").withIcon(R.drawable.logout_icon);
 
@@ -62,7 +62,7 @@ public class SideBar {
                         if (drawerItem.getIdentifier() == 2)
                             mMenuItemSelected.onChartSelected();
                         if (drawerItem.getIdentifier() == 3)
-                            mMenuItemSelected.onSavingSelected();
+                            mMenuItemSelected.onSearchSelected();
                         if (drawerItem.getIdentifier() == 4)
                             mMenuItemSelected.onDebtSelected();
                         if (drawerItem.getIdentifier() == 5)
@@ -79,7 +79,7 @@ public class SideBar {
     public interface MenuItemSelected {
         void onHistorySelected();
         void onChartSelected();
-        void onSavingSelected();
+        void onSearchSelected();
         void onDebtSelected();
         void onLogoutSelected();
     }
