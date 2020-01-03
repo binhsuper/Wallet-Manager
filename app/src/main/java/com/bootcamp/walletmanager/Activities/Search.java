@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.bootcamp.walletmanager.Datamodel.DealType;
 import com.bootcamp.walletmanager.R;
 
 public class Search extends CustomActivity {
@@ -82,6 +83,13 @@ public class Search extends CustomActivity {
                     String value1 = data.getStringExtra("walletName");
                     walletInput.setText(value1);
                 }
+                break;
+            case 1:
+                if(resultCode == RESULT_OK) {
+                    String value2 = data.getStringExtra("groupName");
+                    groupInput.setText(value2);
+                }
+                break;
         }
     }
 
@@ -167,6 +175,7 @@ public class Search extends CustomActivity {
         groupInput.setInputType(InputType.TYPE_NULL);
 
         final Intent walletPick = new Intent(this, WalletList.class);
+        final Intent groupPick = new Intent(this, DealTypes.class);
 
         walletInput.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,6 +201,20 @@ public class Search extends CustomActivity {
 
         rangeLayout = findViewById(R.id.rangeLayout);
         groupLayout = findViewById(R.id.groupLayout);
+
+        groupInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                groupPick.putExtra("STATE", "EDIT");
+                if (kindSpinner.getSelectedItem().toString().equals("Khoản thu")) {
+                    groupPick.putExtra("DEAL_KIND", "income");
+                }
+                else {
+                    groupPick.putExtra("DEAL_KIND", "spending");
+                }
+                startActivityForResult(groupPick, 1);
+            }
+        });
 
         rangeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -220,6 +243,7 @@ public class Search extends CustomActivity {
         kindSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                groupInput.setText("Tất cả");
                 if (position == 0) {
                     groupLayout.setVisibility(View.GONE);
                 }
@@ -234,7 +258,6 @@ public class Search extends CustomActivity {
 
             }
         });
-
 
     }
 

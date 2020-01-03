@@ -37,17 +37,18 @@ public class SearchResult extends CustomActivity implements RecordAdapter.OnClic
         getAllRecords();
         implementToolbar();
         implementMoneySearch();
+        implementWalletSearch();
+        implementNoteSearch();
+        implementKindSearch();
         implementRecyclerView();
-
 
     }
 
-    private void removeUnequalifiedResults(ArrayList<Integer> removeList) {
-        for (int amount : removeList) {
-            Log.d("moneysearch", "implementMoneySearch: " + amount);
+    private void removeUnequalifiedResults(ArrayList<String> removeList) {
+        for (String id : removeList) {
             for (int i = 0; i < allRecords.size(); i++) {
                 Records record = allRecords.get(i);
-                if (Integer.parseInt(record.getAmount()) == amount) {
+                if (record.getRecordID().equals(id)) {
                     allRecords.remove(record);
                 }
             }
@@ -56,7 +57,7 @@ public class SearchResult extends CustomActivity implements RecordAdapter.OnClic
 
     private void implementMoneySearch() {
         amountType = getIntent().getIntExtra("amountType", 0);
-        ArrayList<Integer> removeList = new ArrayList<>();
+        ArrayList<String> removeList = new ArrayList<>();
 
         if (amountType == Search.RangeType.LOWER.getInt()) {
             String minAmount = getIntent().getStringExtra("minAmount");
@@ -64,7 +65,7 @@ public class SearchResult extends CustomActivity implements RecordAdapter.OnClic
             for (int i = 0; i < allRecords.size(); i++) {
                 Records record = allRecords.get(i);
                 if (Integer.parseInt(record.getAmount()) >= Integer.parseInt(minAmount)) {
-                    removeList.add(Integer.parseInt(record.getAmount()));
+                    removeList.add(record.getRecordID());
                 }
             }
         }
@@ -73,7 +74,7 @@ public class SearchResult extends CustomActivity implements RecordAdapter.OnClic
             for (int i = 0; i < allRecords.size(); i++) {
                 Records record = allRecords.get(i);
                 if (Integer.parseInt(record.getAmount()) <= Integer.parseInt(minAmount)) {
-                    removeList.add(Integer.parseInt(record.getAmount()));
+                    removeList.add(record.getRecordID());
                 }
             }
         }
@@ -82,7 +83,7 @@ public class SearchResult extends CustomActivity implements RecordAdapter.OnClic
             for (int i = 0; i < allRecords.size(); i++) {
                 Records record = allRecords.get(i);
                 if (Integer.parseInt(record.getAmount()) != Integer.parseInt(minAmount)) {
-                    removeList.add(Integer.parseInt(record.getAmount()));
+                    removeList.add(record.getRecordID());
                 }
             }
         }
@@ -94,13 +95,73 @@ public class SearchResult extends CustomActivity implements RecordAdapter.OnClic
                 Records record = allRecords.get(i);
                 int recordAmount = Integer.parseInt(record.getAmount());
                 if (recordAmount < minAmount || recordAmount > maxAmount) {
-                    removeList.add(Integer.parseInt(record.getAmount()));
+                    removeList.add(record.getRecordID());
                 }
             }
         }
         removeUnequalifiedResults(removeList);
     }
 
+    private void implementWalletSearch() {
+        ArrayList<String> removeList = new ArrayList<>();
+        String walletName = getIntent().getStringExtra("wallet");
+        Log.d("walletsearch", "implementWalletSearch: " + walletName);
+        if (!walletName.equals("Tất cả các ví")) {
+            for (Records record : allRecords) {
+                if (!record.getFromWallet().equals(walletName)) {
+                    removeList.add(record.getRecordID());
+                }
+            }
+            removeUnequalifiedResults(removeList);
+        }
+    }
+
+    private void implementNoteSearch() {
+        ArrayList<String> removeList = new ArrayList<>();
+        String note = getIntent().getStringExtra("note");
+        if (note != null) {
+            for (Records record : allRecords) {
+                if (!record.getNotes().contains(note)) {
+                    removeList.add(record.getRecordID());
+                }
+            }
+            removeUnequalifiedResults(removeList);
+        }
+    }
+
+    private void implementKindSearch() {
+        ArrayList<String> removeList = new ArrayList<>();
+        int kind = getIntent().getIntExtra("kind", 0);
+        if (kind != Search.Kinds.ALL.getInt()) {
+            String group = getIntent().getStringExtra("group");
+            if (!group.equals("Tất cả")) {
+                for (Records record : allRecords) {
+                    if (!record.getType().equals(group)) {
+                        removeList.add(record.getRecordID());
+                    }
+                }
+                removeUnequalifiedResults(removeList);
+            }
+            else {
+                if (kind == Search.Kinds.INCOME.getInt()) {
+                    for (Records record : allRecords) {
+                        if (!record.getKind().equals("income")) {
+                            removeList.add(record.getRecordID());
+                        }
+                    }
+                    removeUnequalifiedResults(removeList);
+                }
+                if (kind == Search.Kinds.SPENDING.getInt()) {
+                    for (Records record : allRecords) {
+                        if (!record.getKind().equals("spending")) {
+                            removeList.add(record.getRecordID());
+                        }
+                    }
+                    removeUnequalifiedResults(removeList);
+                }
+            }
+        }
+    }
 
     private void implementToolbar() {
         backBtn = (Button) findViewById(R.id.back);
