@@ -1,15 +1,9 @@
 package com.bootcamp.walletmanager.Activities;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,11 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.bootcamp.walletmanager.R;
-
-import java.sql.BatchUpdateException;
-import java.util.Calendar;
 
 public class Search extends CustomActivity {
 
@@ -29,6 +21,27 @@ public class Search extends CustomActivity {
     EditText groupInput, walletInput, amountInput, maxAmountInput, noteInput;
     Spinner kindSpinner, rangeSpinner;
     LinearLayout rangeLayout, groupLayout;
+
+    public enum RangeType
+    {
+        ALL(0),
+        LOWER(1),
+        HIGHER(2),
+        EQUALS(3),
+        RANGES(4);
+
+        RangeType (int i)
+        {
+            this.type = i;
+        }
+
+        private int type;
+
+        public int getInt()
+        {
+            return type;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,9 +87,37 @@ public class Search extends CustomActivity {
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(intent);
+                intent.putExtra("amountType", rangeSpinner.getSelectedItemPosition());
+                if (rangeSpinner.getSelectedItemPosition() == RangeType.ALL.getInt()) {
+                    startActivity(intent);
+                }
+                else if (rangeSpinner.getSelectedItemPosition() == RangeType.RANGES.getInt()){
+                    if (amountInput.length() != 0 && maxAmountInput.length() != 0) {
+                        if (Integer.parseInt(getAmountFromInput(amountInput)) < Integer.parseInt(getAmountFromInput(maxAmountInput))) {
+                            intent.putExtra("minAmount", getAmountFromInput(amountInput));
+                            intent.putExtra("maxAmount", getAmountFromInput(maxAmountInput));
+                            startActivity(intent);
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(), "Số tiền lớn nhất phải lớn hơn số tiền khởi điểm", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "Bạn cần nhập đủ khoảng tiền", Toast.LENGTH_LONG).show();
+                    }
+
+                }
+                else {
+                    intent.putExtra("minAmount", getAmountFromInput(amountInput));
+                    startActivity(intent);
+                }
             }
         });
+    }
+
+    private String getAmountFromInput(EditText input) {
+        String money = input.getText().toString().replaceAll("\\D+","");
+        return money;
     }
 
     private void implementUserInput() {

@@ -19,8 +19,8 @@
 
         <Button
             android:id="@+id/back"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
             android:layout_gravity="left"
             android:backgroundTint="@color/text"
             android:layout_marginLeft="@dimen/_10sdp"
@@ -36,10 +36,44 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/records"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/records"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:background="@color/baseColor"/>
+
+        <LinearLayout
+            android:id="@+id/noResultLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/baseColor"
+            android:gravity="center"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Không có kết quả !"
+                android:textColor="@color/silver"
+                android:textSize="@dimen/_20sdp"/>
+
+            <ImageView
+                android:layout_width="@dimen/_200sdp"
+                android:layout_height="@dimen/_200sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:background="@drawable/empty"
+                android:backgroundTint="@color/silver"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
 
 
 </LinearLayout>
