@@ -41,7 +41,6 @@ public class CreateDeal extends CustomActivity {
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy", Locale.US);
 
     Records selectedRecord;
-    Date currentTime;
     String viewMode = "";
 
     @Override

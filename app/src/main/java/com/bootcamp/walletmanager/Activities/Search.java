@@ -43,6 +43,25 @@ public class Search extends CustomActivity {
         }
     }
 
+    public enum Kinds
+    {
+        ALL(0),
+        INCOME(1),
+        SPENDING(2);
+
+        Kinds (int i)
+        {
+            this.type = i;
+        }
+
+        private int type;
+
+        public int getInt()
+        {
+            return type;
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,36 +102,49 @@ public class Search extends CustomActivity {
         });
 
         searchBtn = (Button) findViewById(R.id.search);
-        final Intent intent = new Intent(this, SearchResult.class);
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.putExtra("amountType", rangeSpinner.getSelectedItemPosition());
-                if (rangeSpinner.getSelectedItemPosition() == RangeType.ALL.getInt()) {
-                    startActivity(intent);
-                }
-                else if (rangeSpinner.getSelectedItemPosition() == RangeType.RANGES.getInt()){
-                    if (amountInput.length() != 0 && maxAmountInput.length() != 0) {
-                        if (Integer.parseInt(getAmountFromInput(amountInput)) < Integer.parseInt(getAmountFromInput(maxAmountInput))) {
-                            intent.putExtra("minAmount", getAmountFromInput(amountInput));
-                            intent.putExtra("maxAmount", getAmountFromInput(maxAmountInput));
-                            startActivity(intent);
-                        }
-                        else {
-                            Toast.makeText(getApplicationContext(), "Số tiền lớn nhất phải lớn hơn số tiền khởi điểm", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                    else {
-                        Toast.makeText(getApplicationContext(), "Bạn cần nhập đủ khoảng tiền", Toast.LENGTH_LONG).show();
-                    }
-
-                }
-                else {
-                    intent.putExtra("minAmount", getAmountFromInput(amountInput));
-                    startActivity(intent);
-                }
+                setUpMoneySearch();
             }
         });
+    }
+
+    private void setUpMoneySearch() {
+        final Intent intent = new Intent(this, SearchResult.class);
+        intent.putExtra("amountType", rangeSpinner.getSelectedItemPosition());
+        intent.putExtra("wallet", walletInput.getText().toString());
+        intent.putExtra("note", noteInput.getText().toString());
+        intent.putExtra("kind", kindSpinner.getSelectedItemPosition());
+
+        if (rangeSpinner.getSelectedItemPosition() == RangeType.RANGES.getInt()){
+            if (amountInput.length() != 0 && maxAmountInput.length() != 0) {
+                if (Integer.parseInt(getAmountFromInput(amountInput)) < Integer.parseInt(getAmountFromInput(maxAmountInput))) {
+                    intent.putExtra("minAmount", getAmountFromInput(amountInput));
+                    intent.putExtra("maxAmount", getAmountFromInput(maxAmountInput));
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Số tiền lớn nhất phải lớn hơn số tiền khởi điểm", Toast.LENGTH_LONG).show();
+                    return;
+                }
+            }
+            else {
+                Toast.makeText(getApplicationContext(), "Bạn cần nhập đủ khoảng tiền", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+        }
+        else {
+            if (rangeSpinner.getSelectedItemPosition() != RangeType.ALL.getInt()) {
+                intent.putExtra("minAmount", getAmountFromInput(amountInput));
+            }
+        }
+
+        if (kindSpinner.getSelectedItemPosition() != Kinds.ALL.getInt()) {
+            intent.putExtra("group", groupInput.getText().toString());
+        }
+
+        startActivity(intent);
     }
 
     private String getAmountFromInput(EditText input) {

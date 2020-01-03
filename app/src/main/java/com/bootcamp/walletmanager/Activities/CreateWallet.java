@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.bootcamp.walletmanager.Application.LoggedAccount;
+import com.bootcamp.walletmanager.Datamodel.Wallets;
 import com.bootcamp.walletmanager.R;
 
 import java.text.SimpleDateFormat;
@@ -51,7 +53,7 @@ public class CreateWallet extends CustomActivity {
             }
         });
 
-        Button checkBtn = (Button) findViewById(R.id.walletCheckBtn);
+        final Button checkBtn = (Button) findViewById(R.id.walletCheckBtn);
         final Intent intent = new Intent(this, Dasboard.class);
         checkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,11 +61,15 @@ public class CreateWallet extends CustomActivity {
                 String[] userInput = getTextInput();
                 if (userInput != null) {
                     //TODO: Create new wallet
-
-                    Date currentTime = Calendar.getInstance().getTime();
-                    createNewWallet(userInput[0], Integer.parseInt(userInput[1]), spinner.getSelectedItemPosition() + 1, currentTime);
-                    finish();
-                    startActivity(intent);
+                    if (checkExistedWallet(userInput[0])) {
+                        Date currentTime = Calendar.getInstance().getTime();
+                        createNewWallet(userInput[0], Integer.parseInt(userInput[1]), spinner.getSelectedItemPosition() + 1, currentTime);
+                        finish();
+                        startActivity(intent);
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "Ví đã tồn tại", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else {
                     Toast toast = Toast.makeText(getApplicationContext(), "Tên ví phải chứa ít nhất 6 kí tự", Toast.LENGTH_SHORT);
@@ -104,6 +110,19 @@ public class CreateWallet extends CustomActivity {
 
             }
         });
+    }
+
+    private boolean checkExistedWallet(String walletName) {
+        boolean result = false;
+        for (Wallets name : LoggedAccount.getCurrentLogin().getUserWallets()) {
+            if (name.getName().equals(walletName)) {
+                result = true;
+            }
+            else {
+                result = false;
+            }
+        }
+        return result;
     }
 
     private String[] getTextInput() {
