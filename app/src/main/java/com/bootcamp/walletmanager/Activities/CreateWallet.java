@@ -61,7 +61,7 @@ public class CreateWallet extends CustomActivity {
                 String[] userInput = getTextInput();
                 if (userInput != null) {
                     //TODO: Create new wallet
-                    if (checkExistedWallet(userInput[0])) {
+                    if (!checkExistedWallet(userInput[0])) {
                         Date currentTime = Calendar.getInstance().getTime();
                         createNewWallet(userInput[0], Integer.parseInt(userInput[1]), spinner.getSelectedItemPosition() + 1, currentTime);
                         finish();

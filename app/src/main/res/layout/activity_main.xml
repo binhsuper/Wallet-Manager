@@ -127,6 +127,7 @@ s
                 android:scrollbars="vertical"
                 android:scrollbarThumbVertical="@color/silver"
                 android:scrollbarSize="@dimen/_3sdp"
+                android:background="@color/baseColor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -136,6 +137,7 @@ s
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:background="@color/baseColor"
                 android:layout_height="@dimen/_100sdp">
             </LinearLayout>
         </LinearLayout>

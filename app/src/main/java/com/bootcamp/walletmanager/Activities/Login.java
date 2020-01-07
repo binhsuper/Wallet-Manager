@@ -72,6 +72,8 @@ public class Login extends CustomActivity {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                emailInput.getText().clear();
+                passwordInput.getText().clear();
                 startActivity(intent);
             }
         });
