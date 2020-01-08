@@ -66,13 +66,28 @@
                 android:textColor="@color/silver"
                 android:textSize="@dimen/_12sdp" />
 
-            <TextView
-                android:id="@+id/money"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Money"
-                android:textColor="@color/text"
-                android:textSize="@dimen/_14sdp" />
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:id="@+id/operator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-"/>
+
+
+                <com.bootcamp.walletmanager.CustomView.RialTextView
+                    android:id="@+id/money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Money"
+                    android:textColor="@color/text"
+                    android:textSize="@dimen/_14sdp" />
+            </LinearLayout>
+
+
 
         </LinearLayout>
     </LinearLayout>

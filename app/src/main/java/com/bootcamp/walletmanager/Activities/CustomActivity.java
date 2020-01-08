@@ -218,10 +218,12 @@ public class CustomActivity extends AppCompatActivity {
     public List<Records> getMonthlyRecords() {
         List<Records> monthlyRecords = new ArrayList<>();
         String currentMonth  = (String) DateFormat.format("MM", Calendar.getInstance().getTime());
+        String currentYear  = (String) DateFormat.format("yyyy", Calendar.getInstance().getTime());
         for (int i = 0; i < LoggedAccount.getCurrentLogin().getUserRecords().size(); i++) {
             Records record = LoggedAccount.getCurrentLogin().getUserRecords().get(i);
             String recordMonth = (String) DateFormat.format("MM", record.getDate());
-            if (currentMonth.equals(recordMonth)) {
+            String recordYear = (String) DateFormat.format("yyyy", record.getDate());
+            if (recordMonth.equals(currentMonth) && recordYear.equals(currentYear)) {
                 monthlyRecords.add(record);
             }
         }

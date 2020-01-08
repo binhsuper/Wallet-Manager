@@ -82,8 +82,10 @@ public class HistoryRecordAdapter extends RecyclerView.Adapter<HistoryRecordAdap
             Records record = LoggedAccount.getCurrentLogin().getUserRecords().get(i);
             Date date = record.getDate();
             String monthNumber  = (String) DateFormat.format("MM", date);
+            String yearNumber  = (String) DateFormat.format("yyyy", date);
             int month = Integer.parseInt(monthNumber);
-            if (month == value) {
+            int recordYear = Integer.parseInt(yearNumber);
+            if (month == value && recordYear == year) {
                 recordsList.add(record);
             }
         }

@@ -44,11 +44,18 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         holder.date.setText(currentTime);
 
         if (mRecords.get(position).getKind().equals("spending")) {
-            holder.money.setText("- " +mRecords.get(position).getAmount() + " đ");
+            //holder.money.setText("- " + mRecords.get(position).getAmount() + " đ");
+            holder.operator.setText("- ");
+            holder.operator.setTextColor(Color.RED);
+            holder.money.setText(mRecords.get(position).getAmount());
             holder.money.setTextColor(Color.RED);
         }
         else {
-            holder.money.setText("+ " +mRecords.get(position).getAmount() + " đ");
+           // holder.money.setText("+ " + mRecords.get(position).getAmount() + " đ");
+            holder.operator.setText("+ ");
+            holder.operator.setTextColor(Color.rgb(11,176,13));
+            holder.money.setText(mRecords.get(position).getAmount());
+
             holder.money.setTextColor(Color.rgb(11,176,13));
         }
 
@@ -109,6 +116,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         TextView money;
         TextView date;
         ImageView background;
+        TextView operator;
 
         RecordViewHolder(View itemView) {
             super(itemView);
@@ -118,6 +126,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
             money = (TextView) itemView.findViewById(R.id.money);
             recordType = (TextView) itemView.findViewById(R.id.typeName);
             background = (ImageView) itemView.findViewById(R.id.typeImg);
+            operator = (TextView) itemView.findViewById(R.id.operator);
         }
     }
 }
